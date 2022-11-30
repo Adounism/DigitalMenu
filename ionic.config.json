@@ -1,0 +1,7 @@
+{
+  "name": "DigitalMenu",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
