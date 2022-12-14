@@ -1,0 +1,195 @@
+<ion-menu class="ion-color" [style.background-color]="primary" style="background:#24262a;" side="end" type="overlay" contentId="main-content">
+  <div class="model"  style="background-color:rgba(36,39,46,255); height: 100%;">
+
+    <ion-header class="ion-no-border">
+      <ion-toolbar class="ion-color" [style.background-color]="primary" >
+        <ion-menu-toggle>
+          <span class="close">Fermer</span>
+        </ion-menu-toggle>
+        <span class="cart-count ion-padding" slot="end">
+          <ion-label>Articles dans le panier(4)</ion-label>
+        </span>
+      </ion-toolbar>
+    </ion-header>
+    <div class="content" style="height: 95%; background-color: rgba(36,39,46,255);">
+      <ion-list class="ion-no-padding" style="height: 70%; background-color: rgba(36,39,46,255); " >
+        <ion-item class="card ion-no-padding" style="padding: 0;">
+
+            <ion-thumbnail slot="start">
+              <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+            </ion-thumbnail>
+            <ion-label class="ion-no-padding">
+              <h3 >Shipt</h3>
+              <div class="cart-control ion-no-padding">
+                <span>-</span>
+                <ion-label>2</ion-label>
+                <span>+</span>
+
+                <ion-label slot="end">23F</ion-label>
+              </div>
+
+            </ion-label>
+        </ion-item>
+
+        <ion-item class="card ion-no-padding" >
+          <ion-thumbnail slot="start">
+            <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+          </ion-thumbnail>
+          <ion-label class="ion-no-padding">
+            <h3>Shipt</h3>
+            <div class="cart-control ion-no-padding">
+              <span>-</span>
+              <ion-label>2</ion-label>
+              <span>+</span>
+
+              <ion-label slot="end">23F</ion-label>
+            </div>
+
+          </ion-label>
+        </ion-item>
+
+        <!-- <ion-item class="card ion-no-padding" >
+          <ion-thumbnail slot="start">
+            <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+          </ion-thumbnail>
+          <ion-label class="ion-no-padding">
+            <h3>Shipt</h3>
+            <div class="cart-control ion-no-padding">
+              <ion-button style="width: 30px; height:30px;">-</ion-button>
+              <ion-label>2</ion-label>
+              <ion-button style="width: 30px; height:30px;">+</ion-button>
+
+              <ion-label slot="end">23F</ion-label>
+            </div>
+
+          </ion-label>
+        </ion-item> -->
+      </ion-list>
+      <div style="    display: flex;
+    justify-content: space-between;">
+        <ion-label style="color: #fff;">Montant Total</ion-label>
+
+        <ion-label style="color: #fff;" >100$</ion-label>
+
+      </div>
+      <div>
+        <ion-buttons  class="ion-no-margin" style="width: 100%;">
+
+          <ion-button style="background-color: #0d7410; width: 100%; color: white; font-family: Arial; font-size: 12px;  height: 40px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+            Commander
+          </ion-button>
+
+        </ion-buttons>
+      </div>
+    </div>
+
+  </div>
+</ion-menu>
+
+<div  id="main-content">
+
+<ion-header>
+  <ion-toolbar class="ion-color" [style.background-color]="primary">
+
+    <ion-label slot="start">
+      <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
+    </ion-label>
+
+
+    <ion-searchbar mode="ios" class="ion-no-padding" color="dark" style="margin: 0; padding:0;height: 25px; font-size: 8px; border-color: white; border: 2px;">
+    </ion-searchbar>
+
+    <ion-buttons slot="end" class="ion-no-margin">
+
+
+      <ion-button class="notification" >
+        <ion-menu-toggle>
+        <ion-icon style="color:white; width: 20px; height: 20px;"  name="cart"></ion-icon>
+        <ion-badge color="primary">2</ion-badge>
+        </ion-menu-toggle>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+</div>
+
+<ion-content>
+
+  <ion-grid >
+    <ion-row >
+      <ion-col style="background-color:rgba(36,39,46,255)" size="3" >
+        <div style="align-items:center; display: flex; justify-content:space-between; flex-direction: column; ">
+
+          <!-- <div  *ngFor="let item of categoryListe" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
+            <ion-icon style="color: green; width: 40px; height: 40px;" [name]="item.image"></ion-icon>
+            <ion-label style="font-size: 8px; color:white">{{item.name}}</ion-label>
+          </div> -->
+
+          <div  *ngFor="let item of categoryListe" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
+            <ion-icon style="color: green; width: 40px; height: 40px;" [name]="item.iconClass"></ion-icon>
+            <ion-label style="font-size: 8px; color:white">{{item.name}}</ion-label>
+          </div>
+
+          <!-- <div  *ngFor="let item of navItems" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
+            <ion-icon style="color: green; width: 40px; height: 40px;" [name]="item.iconClass"></ion-icon>
+            <ion-label style="font-size: 8px; color:white">{{item.label}}</ion-label>
+          </div> -->
+
+        </div>
+
+
+
+      </ion-col>
+      <ion-col style="background-color:#1f1f25" size="9" >
+        <ion-grid>
+          <ion-col *ngFor="let food of foodInCategoryListe">
+            <div  class="checkbox-content" [style.--img-src]="'url(https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb)'">
+              <div class="item-info" (click)="showDetailPage(food.id)">
+
+                <div>
+                  <ion-label class="checkbox-title">{{food.name}}</ion-label>
+                </div>
+                <div>
+
+                  <ion-label class="checkbox-price">{{food.price}}</ion-label>
+                </div>
+
+                <div >
+                </div>
+                <!-- <ion-icon style="color: white; width: 30px; height: 30px;"  name="remove-circle-outline"></ion-icon> -->
+              </div>
+
+              <ion-checkbox mode="ios"  class="checkbox-item" ></ion-checkbox>
+            </div>
+          </ion-col>
+
+          <ion-col >
+            <div class="checkbox-content" [style.--img-src]="'url(https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb)'">
+              <div class="item-info">
+
+                <div>
+                  <ion-label  class="checkbox-title">Burger</ion-label>
+                </div>
+                <div>
+
+                  <ion-label class="checkbox-price">34$</ion-label>
+                </div>
+
+                <div >
+                </div>
+                <!-- <ion-icon style="color: white; width: 30px; height: 30px;"  name="remove-circle-outline"></ion-icon> -->
+              </div>
+
+              <ion-checkbox mode="ios"  class="checkbox-item" ></ion-checkbox>
+            </div>
+          </ion-col>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>
+

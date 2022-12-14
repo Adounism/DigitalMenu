@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  primary ="rgba(36,39,46,255)";
   constructor() {}
 
 }

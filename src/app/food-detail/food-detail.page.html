@@ -1,0 +1,246 @@
+<ion-menu class="ion-color" [style.background-color]="primary" style="background:#24262a;" side="end" type="overlay" contentId="main-content">
+  <div class="model"  style="background-color:rgba(36,39,46,255); height: 100%;">
+
+    <ion-header class="ion-no-border">
+      <ion-toolbar class="ion-color" [style.background-color]="primary" >
+        <ion-menu-toggle>
+          <span class="close">Fermer</span>
+        </ion-menu-toggle>
+        <span class="cart-count ion-padding" slot="end">
+          <ion-label>Articles dans le panier(4)</ion-label>
+        </span>
+      </ion-toolbar>
+    </ion-header>
+    <div class="content" style="height: 95%; background-color: rgba(36,39,46,255);">
+      <ion-list class="ion-no-padding" style="height: 70%; background-color: rgba(36,39,46,255); " >
+        <ion-item class="card ion-no-padding" style="padding: 0;">
+
+            <ion-thumbnail slot="start">
+              <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+            </ion-thumbnail>
+            <ion-label class="ion-no-padding">
+              <h3 >Shipt</h3>
+              <div class="cart-control ion-no-padding">
+                <span>-</span>
+                <ion-label>2</ion-label>
+                <span>+</span>
+
+                <ion-label>23$</ion-label>
+              </div>
+
+            </ion-label>
+        </ion-item>
+
+        <ion-item class="card ion-no-padding" >
+          <ion-thumbnail slot="start">
+            <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+          </ion-thumbnail>
+          <ion-label class="ion-no-padding">
+            <h3>Shipt</h3>
+            <div class="cart-control ion-no-padding">
+              <span>-</span>
+              <ion-label>2</ion-label>
+              <span>+</span>
+
+              <ion-label  slot="end">23$</ion-label>
+            </div>
+
+          </ion-label>
+        </ion-item>
+
+        <ion-item class="card ion-no-padding" >
+          <ion-thumbnail slot="start">
+            <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+          </ion-thumbnail>
+          <ion-label class="ion-no-padding">
+            <h3>Shipt</h3>
+            <div class="cart-control ion-no-padding">
+              <span>-</span>
+              <ion-label>2</ion-label>
+              <span>+</span>
+
+              <ion-label slot="end">23$</ion-label>
+            </div>
+
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <div style="    display: flex;
+    justify-content: space-between;">
+        <ion-label style="color: #fff;">Montant total</ion-label>
+
+        <ion-label style="color: #fff;" >100$</ion-label>
+
+      </div>
+      <div>
+        <ion-buttons  class="ion-no-margin" style="width: 100%;">
+
+          <ion-button style="background-color: #0d7410; width: 100%; color: white; font-family: Arial; font-size: 12px;  height: 40px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+            Commander
+          </ion-button>
+
+        </ion-buttons>
+      </div>
+    </div>
+
+  </div>
+</ion-menu>
+
+
+<div  id="main-content">
+  <ion-header>
+    <ion-toolbar class="ion-color" [style.background-color]="primary">
+
+      <ion-label slot="start">
+        <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
+      </ion-label>
+
+
+      <ion-searchbar mode="ios" class="ion-no-padding" color="dark" style="margin: 0; padding:0;height: 25px; font-size: 8px; border-color: white; border: 2px;">
+      </ion-searchbar>
+
+      <ion-buttons slot="end" class="ion-no-margin">
+
+
+        <ion-button class="notification"  >
+          <ion-menu-toggle>
+          <ion-icon style="color:white; width: 20px; height: 20px;"  name="cart"></ion-icon>
+          <ion-badge color="primary">2</ion-badge>
+          </ion-menu-toggle>
+        </ion-button>
+
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</div>
+
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+
+      <ion-col style="background-color:rgba(36,39,46,255);" size="2" >
+
+        <div class="exit">
+          <ion-buttons slot="end" class="ion-margin">
+            <ion-button class="notification" routerLink="/food" routerDirection="forward">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+              <span>&nbsp;</span>
+            </ion-button>
+          </ion-buttons>
+
+        </div>
+       </ion-col>
+
+
+      <ion-col size="10" style="background-color:#1f1f25; height: 100%;">
+       <ion-grid >
+          <ion-col    style="padding-bottom: 0;">
+
+            <ion-card class="ingredient" style="background-color:rgba(36,39,46,255);">
+              <ion-card-title>INGREDIENTS</ion-card-title>
+              <ion-card-content  style="display:fle; justify-content: space-around; height:80px;">
+                <span *ngFor="let ing of currentFoods?.ingredients">{{ing.name}}</span>
+                <!-- <span>deiu</span>
+                <span>dfefe</span>
+                <span>OPiis</span>
+                <span>coed</span>
+                <span>FLOUR</span>
+                <span>deiu</span>
+                <span>dfefe</span>
+                <span>OPiis</span>
+                <span>coed</span> -->
+              </ion-card-content>
+            </ion-card>
+
+          </ion-col>
+
+
+        <ion-col style="padding-top:0; padding-bottom: 0;">
+
+          <ion-card style="background-color:rgba(36,39,46,255);">
+            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+            <ion-card-header style="padding-top: 0;">
+              <ion-card-title color="white">{{currentFoods?.name}}</ion-card-title>
+
+
+            </ion-card-header>
+
+            <div class="sub-title" style="align-items: center; display: flex; justify-content: space-between; margin: 5px;">
+              <div ion-margin>
+                <ion-label class="title">Dessert</ion-label>
+              </div>
+              <div class="ion-float-right">
+                <ion-label>123$</ion-label>
+              </div>
+            </div>
+            <ion-card-content class="ion-no-padding">
+              <p style="margin: 2px; font-size: 10px;">Add more options</p>
+
+              <div class="options-checks" style="background-color:rgba(36,39,46,255);">
+                <div  style="display: flex; align-items:center;" *ngFor="let options of currentFoods?.availableOptions">
+                  <ion-checkbox style="margin: 10px;" ></ion-checkbox>
+                  <ion-label style="font-size: 10px; color: #fff;">{{options?.name}}</ion-label>
+                  <span style="    position: absolute; right: 0; color: #fff;" class="opt-price">{{options?.price}}</span>
+                </div>
+
+                <div style="display: flex; align-items:center;">
+                  <ion-checkbox style="margin: 10px;" ></ion-checkbox>
+                  <ion-label style="font-size: 10px;" >cheefvfogiog  hfefhioh </ion-label>
+                  <span style="    position: absolute; right: 0;" class="opt-price">233$</span>
+                </div>
+              </div>
+            </ion-card-content>
+            <ion-row class="cardfooter">
+              <ion-col class="ion-no-padding">
+                <ion-buttons  class="ion-no-margin" style="width: 100%;">
+
+                  <ion-button style="background-color: #4CAF50; width: 100%; color: white; font-family: Arial; font-size: 16px;  height: 40px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+                    Add to card
+                  </ion-button>
+
+                </ion-buttons>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+        <ion-col class="ion-no-padding"   >
+
+          <div class="parent" >
+            <div class="contenair" style="position: relative;">
+
+              <ion-card style="background-color:rgba(36,39,46,255);" >
+                <ion-card-header class="ion-no-padding ion-text-center"  style="font-size: 10px;">
+                  <ion-label style="color: white;">Articles réaliser que vous pouvez aimer</ion-label>
+                </ion-card-header>
+
+                <ion-card-content style="height:90px;" >
+
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="slide" style="position: absolute; top:15px; width: 80%; z-index: 1;">
+              <ion-slides>
+
+                <ion-slide class="ion-no-padding" >
+                  <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="">
+                  <ion-label class="menu-name" >Burger</ion-label>
+                  <ion-label class="menu-price" >10F</ion-label>
+                </ion-slide >
+                <ion-slide class="ion-no-padding" >
+                  <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="">
+                </ion-slide>
+                <ion-slide class="ion-no-padding" >
+                  <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="">
+                </ion-slide>
+              </ion-slides>
+            </div>
+        </div>
+        </ion-col>
+
+      </ion-grid>
+    </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
