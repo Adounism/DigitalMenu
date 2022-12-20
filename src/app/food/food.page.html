@@ -7,25 +7,32 @@
           <span class="close">Fermer</span>
         </ion-menu-toggle>
         <span class="cart-count ion-padding" slot="end">
-          <ion-label>Articles dans le panier(4)</ion-label>
+          <ion-label>Articles dans le panier({{tailleCard}})</ion-label>
         </span>
       </ion-toolbar>
     </ion-header>
     <div class="content" style="height: 95%; background-color: rgba(36,39,46,255);">
       <ion-list class="ion-no-padding" style="height: 70%; background-color: rgba(36,39,46,255); " >
-        <ion-item class="card ion-no-padding" style="padding: 0;">
+        <ion-item class="card ion-no-padding"  *ngFor="let cart of cardListFood">
 
             <ion-thumbnail slot="start">
-              <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+              <img src="{{BaseUrl+cart.image}}"/>
             </ion-thumbnail>
             <ion-label class="ion-no-padding">
-              <h3 >Shipt</h3>
+              <h3 >{{cart.name}}</h3>
               <div class="cart-control ion-no-padding">
-                <span>-</span>
-                <ion-label>2</ion-label>
-                <span>+</span>
+                <ion-buttons>
+                  <ion-button style="width: 20px; height:20px; background-color: #0d7410;" (click)="decrementQuantity(cart)">-</ion-button>
+                </ion-buttons>
 
-                <ion-label slot="end">23F</ion-label>
+                <ion-label>{{cart.quantity}}</ion-label>
+                <ion-buttons>
+                  <ion-button style="width: 20px; height:20px;  background-color: #0d7410;" (click)="incrementQuantity(cart)" >+</ion-button>
+                </ion-buttons>
+                <div>
+
+                  <!-- <ion-label slot="end" style="overflow: visible;">{{cart.price}}</ion-label> -->
+                </div>
               </div>
 
             </ion-label>
@@ -38,10 +45,14 @@
           <ion-label class="ion-no-padding">
             <h3>Shipt</h3>
             <div class="cart-control ion-no-padding">
-              <span>-</span>
+              <ion-buttons>
+                <ion-button style="width: 20px; height:20px; background-color: #0d7410;">-</ion-button>
+              </ion-buttons>
               <ion-label>2</ion-label>
-              <span>+</span>
 
+              <ion-buttons>
+                <ion-button style="width: 20px; height:20px;  background-color: #0d7410;">+</ion-button>
+              </ion-buttons>
               <ion-label slot="end">23F</ion-label>
             </div>
 
@@ -105,7 +116,7 @@
       <ion-button class="notification" >
         <ion-menu-toggle>
         <ion-icon style="color:white; width: 20px; height: 20px;"  name="cart"></ion-icon>
-        <ion-badge color="primary">2</ion-badge>
+        <ion-badge color="primary">{{tailleCard}}</ion-badge>
         </ion-menu-toggle>
       </ion-button>
 
@@ -145,7 +156,7 @@
       <ion-col style="background-color:#1f1f25" size="9" >
         <ion-grid>
           <ion-col *ngFor="let food of foodInCategoryListe">
-            <div  class="checkbox-content" [style.--img-src]="'url(https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb)'">
+            <div  class="checkbox-content" [style.--img-src]="'url(' + BaseUrl+ food.image + ')'">
               <div class="item-info" (click)="showDetailPage(food.id)">
 
                 <div>
@@ -158,10 +169,10 @@
 
                 <div >
                 </div>
-                <!-- <ion-icon style="color: white; width: 30px; height: 30px;"  name="remove-circle-outline"></ion-icon> -->
+
               </div>
 
-              <ion-checkbox mode="ios"  class="checkbox-item" ></ion-checkbox>
+              <ion-checkbox mode="ios"  class="checkbox-item" (ionChange)="updateCardList(food)"></ion-checkbox>
             </div>
           </ion-col>
 
@@ -191,5 +202,8 @@
   </ion-grid>
 
 
+
 </ion-content>
+
+
 

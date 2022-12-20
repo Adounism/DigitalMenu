@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonCheckbox, NavController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 import { HttpServices } from '../services/http-services.service';
 
 @Component({
@@ -10,12 +11,21 @@ import { HttpServices } from '../services/http-services.service';
 export class FoodPage implements OnInit {
 
   primary ="rgba(36,39,46,255)";
+  @ViewChild('myCheckbox')
+  myCheckbox!: IonCheckbox;
   navListItem!: HTMLElement[];
   classList!:any;
   categoryListe:any
   currentCategory:any;
   foodInCategoryListe:any[] =[];
   ingredientInFood:any;
+  checkboxValue:any;
+  cardListFood:any[] =[];
+  tailleCard:any;
+  foodSelectedListe:any[] =[];
+  selectedFood:any;
+  quantity=0;
+  BaseUrl= environment.ressoursseUrl;
 
 
   navItems: any[] = [
@@ -58,6 +68,8 @@ export class FoodPage implements OnInit {
   getAllCategories(){
     this.service.getCategory().subscribe(data=>{
       this.categoryListe = data;
+      console.log(this.categoryListe[0]);
+
 
     });
   }
@@ -73,4 +85,100 @@ export class FoodPage implements OnInit {
   showDetailPage(id:number){
     this.navCtrl.navigateForward(['/food-detail/'+id ]);
   }
+
+
+  optionsChecked(opt:any){
+    if (this.checkboxValue) {
+      console.log('Checkbox sélectionné');
+      console.log(opt);
+      this.foodSelectedListe.push(opt);
+
+
+    } else {
+     const index=  this.foodSelectedListe.indexOf(opt, 0);
+      if(index > -1){
+        this.foodSelectedListe.splice(index, 1);
+      }
+      console.log('Checkbox désélectionné');
+    }
+
+  }
+
+
+  checkboxChanged(event: any) {
+    console.log(this.myCheckbox.checked);
+    // console.log(event.target.value);
+    const food = event.target.value;
+    food.quantity = 0;
+
+    console.log(food);
+
+
+    if(this.myCheckbox.checked){
+      this.cardListFood.push(event.target.value);
+      // console.log(this.cardListFood);
+
+    }else{
+      const index=  this.cardListFood.indexOf(event.target.value, 0);
+      if(index > -1){
+        this.cardListFood.splice(index, 1);
+      }
+      console.log(this.cardListFood);
+
+    }
+
+
+  }
+
+
+    // Method to handle the ionChange event
+    handleCheckboxChange(event:any) {
+      // Get the selected food from the event
+      this.selectedFood = event.target.value;
+      console.log(this.selectedFood);
+
+      // If the checkbox is checked, add the selected food to the cardListFood array
+      if (event.detail.checked) {
+        this.cardListFood.push(this.selectedFood);
+        console.log(this.cardListFood);
+      }
+      // If the checkbox is not checked, remove the selected food from the cardListFood array
+      else {
+        const index = this.cardListFood.indexOf(this.selectedFood);
+        if (index > -1) {
+          this.cardListFood.splice(index, 1);
+          console.log(this.cardListFood);
+        }
+      }
+    }
+
+    updateCardList(food: any) {
+      food.quantity = 1;
+      const index = this.cardListFood.indexOf(food);
+      if (index > -1) {
+        this.cardListFood.splice(index, 1);
+        this.tailleCard = this.cardListFood.length;
+      } else {
+
+        food.quantity = 1;
+        this.cardListFood.push(food);
+        this.tailleCard = this.cardListFood.length;
+      }
+    }
+
+
+    incrementQuantity(food:any){
+      food.quantity  = food.quantity +1;
+      console.log(food);
+
+    }
+
+    decrementQuantity(food:any){
+      food.quantity  = food.quantity -1;
+      console.log(food);
+
+    }
+
+
+
 }

@@ -2,7 +2,7 @@
   <ion-toolbar class="ion-color" [style.background-color]="primary">
 
     <ion-label slot="start">
-      FOOD ECOD
+      <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
     </ion-label>
 
     <div style="    justify-content: center;
@@ -16,8 +16,8 @@
     </div>
 
       <ion-buttons slot="end" class="ion-margin">
-        <ion-button class="notification">
-          <ion-icon style="color:white" name="language-outline"></ion-icon>
+        <ion-button class="notification" routerLink="/langage">
+          <ion-icon style="color:white"  name="language-outline"></ion-icon>
 
           <span>&nbsp;</span>
         </ion-button>
@@ -53,82 +53,34 @@
 
 
       <ion-row style="width: 100%;">
-          <ion-col size="6" >
+          <!-- <ion-col size="6" >
             <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
-              <ion-card-header>
-                <ion-card-title style="color: white; font-size: 10px;">Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              <ion-card-header class="ion-no-padding" style="display:flex; height: 50px; justify-content: space-around; margin: 5px;">
+                <ion-label style="color: white; font-size: 14px;">Table 1</ion-label >
+                <ion-label style="color: white; font-size: 14px;">5:30</ion-label>
               </ion-card-header>
 
-              <ion-card-content>
-                Card Content
+              <ion-card-content class="ion-no-padding">
+               <ion-label style="color: white; font-size: 11px; margin: 5px;">Commandé 5 Articles</ion-label>
               </ion-card-content>
             </ion-card>
-          </ion-col>
-          <ion-col size="6"  >
+          </ion-col> -->
+
+
+          <ion-col size="6" *ngFor="let table of tablesListes">
             <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
-              <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              <ion-card-header class="ion-no-padding" style="display:flex; height: 50px; justify-content: space-around; margin: 5px;">
+                <ion-label style="color: white; font-size: 14px;">{{table.name}}</ion-label >
+                <ion-label style="color: white; font-size: 14px;">5:30</ion-label>
               </ion-card-header>
 
-              <ion-card-content>
-                Card Content
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-
-          <ion-col size="6"  >
-            <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
-              <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-              </ion-card-header>
-
-              <ion-card-content>
-                Card Content
+              <ion-card-content class="ion-no-padding">
+               <ion-label style="color: white; font-size: 11px; margin: 5px;">Commandé 5 Articles</ion-label>
               </ion-card-content>
             </ion-card>
           </ion-col>
 
-          <ion-col size="6"  >
-            <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
-              <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-              </ion-card-header>
 
-              <ion-card-content>
-                Card Content
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-
-          <ion-col size="6"  >
-            <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
-              <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-              </ion-card-header>
-
-              <ion-card-content>
-                Card Content
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-
-          <ion-col size="6"  >
-            <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
-              <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-              </ion-card-header>
-
-              <ion-card-content>
-                Card Content
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
       </ion-row>
     </div>
 </ion-content>

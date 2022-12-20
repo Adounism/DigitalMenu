@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
+import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +43,12 @@ export class HttpServices {
     findOrdering:this.BaseUrl+"orderings/"
   }
 
+  tables = {
+    allTable: this.BaseUrl + "tables"
+  }
+
   private dataCache: any ;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storage: StorageService) { }
 
 
   // getData(id: string): Observable<any> {
@@ -64,7 +70,7 @@ export class HttpServices {
 
 
 
-  getCategory(): Observable<any> {
+   getCategory(): Observable<any> {
     if (this.dataCache) {
       // Retourne les données mises en cache si elles existent
       return of(this.dataCache);
@@ -73,6 +79,8 @@ export class HttpServices {
       return this.http.get(`${this.category.allCategories}`).pipe(
         map(data => {
           this.dataCache = data;
+         // Enregistrez les données de l'API dans le cache en utilisant le service StorageService
+           this.storage.setData('category', data);
           return data;
         }),
         catchError(error => {
@@ -106,5 +114,27 @@ export class HttpServices {
 
     // }))
   }
+  async getCachedData() {
+    // Récupérez les données de l'API du cache en utilisant le service StorageService
+    const cachedData = await this.storage.getData('category');
+  }
 
+
+
+  getAllTables(): Observable<any>{
+    return this.http.get(`${this.tables.allTable}`).pipe(
+      map(data=>{
+        return data;
+      })
+    )
+
+  }
+
+  getAllOptions():Observable<any>{
+    return this.http.get(`${this.options.allOptions}`).pipe(
+      map(data=>{
+        return data;
+      })
+    )
+  }
 }

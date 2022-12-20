@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpServices } from '../services/http-services.service';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,18 @@ import { Component } from '@angular/core';
 export class HomePage {
 
   primary ="rgba(36,39,46,255)";
-  constructor() {}
+  tablesListes:any[]=[];
+  constructor(private httpService: HttpServices) {
+    this.getAllTables();
+  }
+
+
+  getAllTables(){
+    this.httpService.getAllTables().subscribe(data=>{
+      this.tablesListes = data;
+      console.log(data);
+
+    })
+  }
 
 }

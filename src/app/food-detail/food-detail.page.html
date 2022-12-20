@@ -122,7 +122,7 @@
 
         <div class="exit">
           <ion-buttons slot="end" class="ion-margin">
-            <ion-button class="notification" routerLink="/food" routerDirection="forward">
+            <ion-button class="notification" (click)="showFoodPge()" routerDirection="forward">
               <ion-icon name="arrow-back-outline"></ion-icon>
               <span>&nbsp;</span>
             </ion-button>
@@ -140,15 +140,7 @@
               <ion-card-title>INGREDIENTS</ion-card-title>
               <ion-card-content  style="display:fle; justify-content: space-around; height:80px;">
                 <span *ngFor="let ing of currentFoods?.ingredients">{{ing.name}}</span>
-                <!-- <span>deiu</span>
-                <span>dfefe</span>
-                <span>OPiis</span>
-                <span>coed</span>
-                <span>FLOUR</span>
-                <span>deiu</span>
-                <span>dfefe</span>
-                <span>OPiis</span>
-                <span>coed</span> -->
+
               </ion-card-content>
             </ion-card>
 
@@ -157,8 +149,8 @@
 
         <ion-col style="padding-top:0; padding-bottom: 0;">
 
-          <ion-card style="background-color:rgba(36,39,46,255);">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+          <ion-card style="background-color:rgba(36,39,46,255);" >
+            <img alt="Silhouette of mountains" height="120" width="100%" src="{{BaseUrl+currentFoods?.image}} "/>
             <ion-card-header style="padding-top: 0;">
               <ion-card-title color="white">{{currentFoods?.name}}</ion-card-title>
 
@@ -170,7 +162,7 @@
                 <ion-label class="title">Dessert</ion-label>
               </div>
               <div class="ion-float-right">
-                <ion-label>123$</ion-label>
+                <ion-label>{{totatDessertPrice}}$</ion-label>
               </div>
             </div>
             <ion-card-content class="ion-no-padding">
@@ -178,23 +170,18 @@
 
               <div class="options-checks" style="background-color:rgba(36,39,46,255);">
                 <div  style="display: flex; align-items:center;" *ngFor="let options of currentFoods?.availableOptions">
-                  <ion-checkbox style="margin: 10px;" ></ion-checkbox>
+                  <ion-checkbox style="margin: 10px;"  [(ngModel)]="checkboxValue" [value]="options"  (ionChange)="optionsChecked(options)" ></ion-checkbox>
                   <ion-label style="font-size: 10px; color: #fff;">{{options?.name}}</ion-label>
-                  <span style="    position: absolute; right: 0; color: #fff;" class="opt-price">{{options?.price}}</span>
+                  <span style="position: absolute; right: 0; color: #fff;" class="opt-price">{{options?.price}}</span>
                 </div>
 
-                <div style="display: flex; align-items:center;">
-                  <ion-checkbox style="margin: 10px;" ></ion-checkbox>
-                  <ion-label style="font-size: 10px;" >cheefvfogiog  hfefhioh </ion-label>
-                  <span style="    position: absolute; right: 0;" class="opt-price">233$</span>
-                </div>
               </div>
             </ion-card-content>
             <ion-row class="cardfooter">
               <ion-col class="ion-no-padding">
                 <ion-buttons  class="ion-no-margin" style="width: 100%;">
 
-                  <ion-button style="background-color: #4CAF50; width: 100%; color: white; font-family: Arial; font-size: 16px;  height: 40px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+                  <ion-button style="background-color: #4CAF50; width: 100%; color: white; font-family: Arial; font-size: 16px;  height: 40px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;" (click)="addToCard()">
                     Add to card
                   </ion-button>
 
@@ -218,7 +205,7 @@
                 </ion-card-content>
               </ion-card>
             </div>
-            <div class="slide" style="position: absolute; top:15px; width: 80%; z-index: 1;">
+            <div class="slide" style="position: absolute; top:15px; width: 90%; z-index: 1;">
               <ion-slides>
 
                 <ion-slide class="ion-no-padding" >
@@ -235,7 +222,7 @@
               </ion-slides>
             </div>
         </div>
-        </ion-col>
+      </ion-col>
 
       </ion-grid>
     </ion-col>
