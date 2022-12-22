@@ -9,8 +9,8 @@ const routes: Routes = [
   {
     path: '',
     // redirectTo: 'food-detail',
-    // redirectTo: 'home',
-    redirectTo: 'food',
+    redirectTo: 'home',
+    // redirectTo: 'food',
     // redirectTo: 'langage',
     pathMatch: 'full'
   },
@@ -29,7 +29,11 @@ const routes: Routes = [
   {
     path: 'food-detail/:id',
     loadChildren: () => import('./food-detail/food-detail.module').then( m => m.FoodDetailPageModule)
+  },  {
+    path: 'modal',
+    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
   },
+
 ];
 
 @NgModule({

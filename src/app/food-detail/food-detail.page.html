@@ -13,69 +13,44 @@
     </ion-header>
     <div class="content" style="height: 95%; background-color: rgba(36,39,46,255);">
       <ion-list class="ion-no-padding" style="height: 70%; background-color: rgba(36,39,46,255); " >
-        <ion-item class="card ion-no-padding" style="padding: 0;">
+        <ion-item class="card ion-no-padding" style="padding: 0;" *ngFor="let cart of cardListe">
 
             <ion-thumbnail slot="start">
-              <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
+              <img src="{{BaseUrl+cart.image}}"/>
             </ion-thumbnail>
             <ion-label class="ion-no-padding">
-              <h3 >Shipt</h3>
-              <div class="cart-control ion-no-padding">
-                <span>-</span>
-                <ion-label>2</ion-label>
-                <span>+</span>
+              <div class="name-food">
 
-                <ion-label>23$</ion-label>
+                <ion-label>{{cart.name}}</ion-label>
+                <ion-icon name="close-circle-outline" style="font-size:14px; margin-right: 10px;" (click)="removeFoodToCard(cart)"></ion-icon>
+
+              </div>
+              <div class="cart-control ion-no-padding">
+                <ion-buttons>
+                  <ion-button style="width: 20px; height:20px; background-color: #0d7410;" (click)="decrementQuantity(cart)">-</ion-button>
+                </ion-buttons>
+                <ion-label>{{cart.quantity}}</ion-label>
+                <ion-buttons>
+                  <ion-button style="width: 20px; height:20px;  background-color: #0d7410;" (click)="incrementQuantity(cart)">+</ion-button>
+                </ion-buttons>
+                <ion-label>{{cart.price}}</ion-label>
               </div>
 
             </ion-label>
         </ion-item>
 
-        <ion-item class="card ion-no-padding" >
-          <ion-thumbnail slot="start">
-            <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
-          </ion-thumbnail>
-          <ion-label class="ion-no-padding">
-            <h3>Shipt</h3>
-            <div class="cart-control ion-no-padding">
-              <span>-</span>
-              <ion-label>2</ion-label>
-              <span>+</span>
-
-              <ion-label  slot="end">23$</ion-label>
-            </div>
-
-          </ion-label>
-        </ion-item>
-
-        <ion-item class="card ion-no-padding" >
-          <ion-thumbnail slot="start">
-            <img src="https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb"/>
-          </ion-thumbnail>
-          <ion-label class="ion-no-padding">
-            <h3>Shipt</h3>
-            <div class="cart-control ion-no-padding">
-              <span>-</span>
-              <ion-label>2</ion-label>
-              <span>+</span>
-
-              <ion-label slot="end">23$</ion-label>
-            </div>
-
-          </ion-label>
-        </ion-item>
       </ion-list>
       <div style="    display: flex;
     justify-content: space-between;">
         <ion-label style="color: #fff;">Montant total</ion-label>
 
-        <ion-label style="color: #fff;" >100$</ion-label>
+        <ion-label style="color: #fff;" >{{totalPrice}}</ion-label>
 
       </div>
       <div>
         <ion-buttons  class="ion-no-margin" style="width: 100%;">
 
-          <ion-button style="background-color: #0d7410; width: 100%; color: white; font-family: Arial; font-size: 12px;  height: 40px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+          <ion-button  (click)="orderFoods()" id="open-custom-dialog" expand="block"  class="command">
             Commander
           </ion-button>
 
@@ -200,27 +175,23 @@
                   <ion-label style="color: white;">Articles réaliser que vous pouvez aimer</ion-label>
                 </ion-card-header>
 
-                <ion-card-content style="height:90px;" >
+                <ion-card-content style="height:90px;" class="ion-no-padding" >
 
                 </ion-card-content>
               </ion-card>
-            </div>
-            <div class="slide" style="position: absolute; top:15px; width: 90%; z-index: 1;">
-              <ion-slides>
+              <div class="slide" style="position: absolute; top:15px; width: 90%; z-index: 1;">
+                <ion-slides >
 
-                <ion-slide class="ion-no-padding" >
-                  <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="">
-                  <ion-label class="menu-name" >Burger</ion-label>
-                  <ion-label class="menu-price" >10F</ion-label>
-                </ion-slide >
-                <ion-slide class="ion-no-padding" >
-                  <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="">
-                </ion-slide>
-                <ion-slide class="ion-no-padding" >
-                  <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="">
-                </ion-slide>
-              </ion-slides>
+                  <ion-slide class="ion-no-padding" *ngFor="let food of foodInCategory" (click)="showDetailPage(food.id)">
+                    <img src="{{BaseUrl+food.image}}" style="width: 100%;" alt="">
+                    <ion-label class="menu-name" >{{food.name}}</ion-label>
+                    <ion-label class="menu-price" >{{food.price}}</ion-label>
+                  </ion-slide >
+
+                </ion-slides>
+              </div>
             </div>
+
         </div>
       </ion-col>
 
@@ -229,5 +200,23 @@
     </ion-row>
 
   </ion-grid>
+
+
+
+  <ion-modal id="example-modal" #modal [hidden]="!showModal" trigger="open-custom-dialog">
+    <ng-template>
+      <div class="wrapper ion-text-center">
+        <ion-label>NOUS DEVONS DIRE</ion-label>
+        <h5>Tu as super choix de goût</h5>
+
+        <img src="../../assets/img/image.png" alt="">
+
+        <ion-label>Commande confirmer avec</ion-label>
+        <h5>Eco <span style="color: #0d7410;">Food</span> </h5>
+        <p>Votre commande sera bientôt prêt</p>
+
+      </div>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonCheckbox, NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { HttpServices } from '../services/http-services.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-food',
@@ -48,13 +49,13 @@ export class FoodPage implements OnInit {
   ];
 
   activeItem: any;
-  constructor(private service:HttpServices, public navCtrl: NavController) {
+  constructor(private service:HttpServices, private sharedservice:SharedService, public navCtrl: NavController) {
     this.getAllCategories();
 
   }
 
   ngOnInit() {
-    this.activeItem = this.navItems[0];
+    // this.activeItem = this.navItems[0];
   }
 
   setActive(item: any) {
@@ -69,6 +70,8 @@ export class FoodPage implements OnInit {
     this.service.getCategory().subscribe(data=>{
       this.categoryListe = data;
       console.log(this.categoryListe[0]);
+      this.activeItem = this.categoryListe[0];
+      this.getFoodInCategory(this.categoryListe[0].name);
 
 
     });
@@ -116,7 +119,7 @@ export class FoodPage implements OnInit {
 
     if(this.myCheckbox.checked){
       this.cardListFood.push(event.target.value);
-      // console.log(this.cardListFood);
+
 
     }else{
       const index=  this.cardListFood.indexOf(event.target.value, 0);
@@ -153,29 +156,17 @@ export class FoodPage implements OnInit {
     }
 
     updateCardList(food: any) {
-      food.quantity = 1;
-      const index = this.cardListFood.indexOf(food);
-      if (index > -1) {
-        this.cardListFood.splice(index, 1);
-        this.tailleCard = this.cardListFood.length;
-      } else {
-
-        food.quantity = 1;
-        this.cardListFood.push(food);
-        this.tailleCard = this.cardListFood.length;
-      }
+      this.sharedservice.updateCardList(food);
+      this.cardListFood = this.sharedservice.cardListFood;
     }
 
 
     incrementQuantity(food:any){
-      food.quantity  = food.quantity +1;
-      console.log(food);
-
+      this.sharedservice.incrementFoodQuantity(food);
     }
 
     decrementQuantity(food:any){
-      food.quantity  = food.quantity -1;
-      console.log(food);
+      this.sharedservice.decrementQuantity(food);
 
     }
 

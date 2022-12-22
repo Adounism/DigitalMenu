@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { IonModal, ModalController, NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { FoodPage } from '../food/food.page';
+import { ModalPage } from '../modal/modal.page';
 import { HttpServices } from '../services/http-services.service';
+import { SharedService } from '../services/shared.service';
+
 
 @Component({
   selector: 'app-food-detail',
@@ -22,8 +25,16 @@ export class FoodDetailPage implements OnInit {
   checkboxValue:any;
   totatDessertPrice:number= 0;
   optionsSelectedListe:any[]=[];
+  cardListe:any[]=[];
+  foodInCategory:any[]=[];
+  tableId:any;
+  showModal:boolean = false;
+  totalPrice:number = 0;
   BaseUrl= environment.ressoursseUrl;
-  constructor(private services : HttpServices, private router:ActivatedRoute, public navCtrl: NavController) {
+  @ViewChild('modal', { static: false }) modal!: ModalController;
+  constructor(private services : HttpServices,  router:ActivatedRoute,
+     public navCtrl: NavController, private sharedService:SharedService,
+     private modalController: ModalController) {
     this.currentFoodId = router.snapshot.params['id'];
     this.pushPage = FoodPage;
     this.params = { id: 42 };
@@ -31,13 +42,23 @@ export class FoodDetailPage implements OnInit {
 
   ngOnInit() {
     this.getCurrentFoodData();
+    this.tableId = localStorage.getItem("table");
+    console.log(this.tableId);
+
   }
 
 
-  getCurrentFoodData(){
-    this.services.getfindFoodsInCategorys(this.currentFoodId).subscribe(data=>{
+ async getCurrentFoodData(){
+    console.log(this.currentFoodId);
+
+    // this.currentFoods = this.sharedService.cardListFood.find(x => x.id == this.currentFoodId);
+
+    // console.log(this.currentFoodId);
+
+
+    await this.services.getfindFoodsInCategorys(this.currentFoodId).subscribe(data=>{
       this.currentFoods = data;
-      console.log(this.currentFoods.name);
+      this.getAllFoodIncategory(data.category?.name);
 
     });
   }
@@ -62,6 +83,10 @@ export class FoodDetailPage implements OnInit {
     //   }
     // ]
     // }
+
+    this.sharedService.addToCard(this.currentFoods);
+    this.cardListe = this.sharedService.cardListFood;
+    this.totalPrice = this.sharedService.totalPrice;
     console.log(this.optionsSelectedListe);
 
   }
@@ -72,19 +97,23 @@ export class FoodDetailPage implements OnInit {
 
   optionsChecked(opt:any){
     if (this.checkboxValue) {
-      console.log('Checkbox sélectionné');
-      console.log(opt);
+
+      this.cardListe = this.sharedService.cardListFood;
+      this.sharedService.addOptionsToFood(this.currentFoodId, this.optionsSelectedListe )
+      console.log();
+
       this.optionsSelectedListe.push(opt);
       this.totatDessertPrice = +  opt.price;
 
 
     } else {
-     const index=  this.optionsSelectedListe.indexOf(opt, 0);
-      if(index > -1){
-        this.optionsSelectedListe.splice(index, 1);
-        this.totatDessertPrice = this.totatDessertPrice - opt.price;
+      this.sharedService.removeOptionsToFood(this.currentFoodId, opt)
+    //  const index=  this.optionsSelectedListe.indexOf(opt, 0);
+    //   if(index > -1){
+    //     this.optionsSelectedListe.splice(index, 1);
+    //     this.totatDessertPrice = this.totatDessertPrice - opt.price;
 
-      }
+    //   }
       console.log('Checkbox désélectionné');
     }
 
@@ -94,8 +123,91 @@ export class FoodDetailPage implements OnInit {
     this.navCtrl.navigateForward(['/food']);
   }
 
-  incrementQuantity(quantity:number){
-    return quantity = +1;
+  incrementQuantity(food:any){
+    this.sharedService.incrementFoodQuantity(food)
+    this.totalPrice = this.sharedService.totalPrice;
   }
+
+  decrementQuantity(food:any){
+    this.sharedService.decrementQuantity(food);
+    this.totalPrice = this.sharedService.totalPrice;
+  }
+
+
+  removeFoodToCard(food:any){
+    this.sharedService.removeToCard(food);
+    this.totalPrice = this.sharedService.totalPrice;
+  }
+
+  getAllFoodIncategory(category:string){
+    this.services.getFoodInCategorys(category).subscribe(data=>{
+      this.foodInCategory= data;
+      console.log(this.foodInCategory);
+
+    })
+  }
+
+  orderFoods(){
+    this.cardListe.forEach(food => {
+
+
+      this.totalPrice = + food.price;
+      let options = [];
+      let optionsInFood= food.options;
+      if(food.options){
+
+        for(let opt of optionsInFood){
+          options.push("api/options/"+opt.id);
+
+        }
+      }
+    let order :any =  {
+        // "itable": "api/tables/"+this.tableId,
+        "foodOrders" : [
+          {
+            "food": "api/food/"+ parseInt(food.id),
+            "quantity": food.quantity,
+            "options":options
+          }
+        ]
+
+      }
+
+
+    console.log(order);
+     this.services.makeOrdering(order).then(data=>{
+
+      this.showModal = true;
+
+     }).catch(error=>{
+
+     })
+
+    });
+
+
+  }
+
+
+  showDetailPage(id:number){
+    this.navCtrl.navigateForward(['/food-detail/'+id ]);
+  }
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: 'example-modal',
+
+      componentProps: {
+        modal: 'modal'
+        }
+    });
+    return await modal.present();
+  }
+
+
+  async closeModal() {
+    await this.modal.dismiss();
+    }
+
+
 
 }

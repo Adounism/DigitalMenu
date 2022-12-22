@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
@@ -136,5 +136,15 @@ export class HttpServices {
         return data;
       })
     )
+  }
+
+  makeOrdering(data: any):Promise<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/ld+json'
+      })
+    };
+    return this.http.post(`${this.ordering.makeOrderings}`, data, httpOptions).toPromise();
+
   }
 }

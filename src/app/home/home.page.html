@@ -68,7 +68,7 @@
 
 
           <ion-col size="6" *ngFor="let table of tablesListes">
-            <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
+            <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; " (click)="navigate(table.id)" >
               <ion-card-header class="ion-no-padding" style="display:flex; height: 50px; justify-content: space-around; margin: 5px;">
                 <ion-label style="color: white; font-size: 14px;">{{table.name}}</ion-label >
                 <ion-label style="color: white; font-size: 14px;">5:30</ion-label>

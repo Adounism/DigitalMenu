@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServices } from '../services/http-services.service';
 
 @Component({
@@ -10,7 +11,11 @@ export class HomePage {
 
   primary ="rgba(36,39,46,255)";
   tablesListes:any[]=[];
-  constructor(private httpService: HttpServices) {
+  tableID!:number;
+  constructor(private httpService: HttpServices, private router: Router) {
+    // this.tableID = this.router.snapshot.params['id'];
+    console.log(this.tableID);
+
     this.getAllTables();
   }
 
@@ -20,7 +25,14 @@ export class HomePage {
       this.tablesListes = data;
       console.log(data);
 
-    })
+    });
+  }
+
+
+  navigate(id:any){
+    this.router.navigate(['/food']);
+    localStorage.setItem("table", id);
+
   }
 
 }
