@@ -7,7 +7,7 @@
           <span class="close">Fermer</span>
         </ion-menu-toggle>
         <span class="cart-count ion-padding" slot="end">
-          <ion-label>Articles dans le panier(4)</ion-label>
+          <ion-label>Articles dans le panier({{cardListe.length}})</ion-label>
         </span>
       </ion-toolbar>
     </ion-header>
@@ -80,7 +80,7 @@
         <ion-button class="notification"  >
           <ion-menu-toggle>
           <ion-icon style="color:white; width: 20px; height: 20px;"  name="cart"></ion-icon>
-          <ion-badge color="primary">2</ion-badge>
+          <ion-badge color="primary">{{cardListe.length}}</ion-badge>
           </ion-menu-toggle>
         </ion-button>
 
@@ -93,11 +93,11 @@
   <ion-grid class="ion-no-padding">
     <ion-row>
 
-      <ion-col style="background-color:rgba(36,39,46,255);" size="2" >
+      <ion-col style="background-color:rgba(36,39,46,255);" size="2" [routerLink]="['/food']" >
 
-        <div class="exit">
-          <ion-buttons slot="end" class="ion-margin">
-            <ion-button class="notification" (click)="showFoodPge()" routerDirection="forward">
+        <div class="exit" >
+          <ion-buttons slot="end" class="ion-no-margin">
+            <ion-button class="notification" [routerLink]="['/food']" routerDirection="forward">
               <ion-icon name="arrow-back-outline"></ion-icon>
               <span>&nbsp;</span>
             </ion-button>
@@ -145,7 +145,7 @@
 
               <div class="options-checks" style="background-color:rgba(36,39,46,255);">
                 <div  style="display: flex; align-items:center;" *ngFor="let options of currentFoods?.availableOptions">
-                  <ion-checkbox style="margin: 10px;"  [(ngModel)]="checkboxValue" [value]="options"  (ionChange)="optionsChecked(options)" ></ion-checkbox>
+                  <ion-checkbox style="margin: 10px;"  [(ngModel)]="checkboxValue" [value]="options" [disabled]="disable"  (ionChange)="optionsChecked(options)" ></ion-checkbox>
                   <ion-label style="font-size: 10px; color: #fff;">{{options?.name}}</ion-label>
                   <span style="position: absolute; right: 0; color: #fff;" class="opt-price">{{options?.price}}</span>
                 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonModal, ModalController, NavController } from '@ionic/angular';
+import { IonModal, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { FoodPage } from '../food/food.page';
 import { ModalPage } from '../modal/modal.page';
@@ -30,10 +30,14 @@ export class FoodDetailPage implements OnInit {
   tableId:any;
   showModal:boolean = false;
   totalPrice:number = 0;
+  loading:any;
   BaseUrl= environment.ressoursseUrl;
+  disable = true;
   @ViewChild('modal', { static: false }) modal!: ModalController;
   constructor(private services : HttpServices,  router:ActivatedRoute,
+    private loadingCtrl: LoadingController,
      public navCtrl: NavController, private sharedService:SharedService,
+     public toastController: ToastController,
      private modalController: ModalController) {
     this.currentFoodId = router.snapshot.params['id'];
     this.pushPage = FoodPage;
@@ -46,6 +50,13 @@ export class FoodDetailPage implements OnInit {
     console.log(this.tableId);
 
   }
+
+  ionViewWillEnter() {
+    this.cardListe = this.sharedService.cardListFood;
+    this.totalPrice = this.sharedService.totalPrice;
+
+  }
+
 
 
  async getCurrentFoodData(){
@@ -71,22 +82,14 @@ export class FoodDetailPage implements OnInit {
 
 
   addToCard(){
-    // {
-    // "itable": "string",
-    // "foodOrders": [
-    //   {
-    //     "food": "string",
-    //     "quantity": 0,
-    //     "options": [
-    //       "string"
-    //     ]
-    //   }
-    // ]
-    // }
+    this.disable = false;
 
     this.sharedService.addToCard(this.currentFoods);
     this.cardListe = this.sharedService.cardListFood;
     this.totalPrice = this.sharedService.totalPrice;
+    let message =  "Article ajouter au panier.";
+    let color = 'success'
+    this.presentToast(message, color);
     console.log(this.optionsSelectedListe);
 
   }
@@ -96,31 +99,50 @@ export class FoodDetailPage implements OnInit {
   }
 
   optionsChecked(opt:any){
-    if (this.checkboxValue) {
+    if(this.cardListe.length > 0){
 
-      this.cardListe = this.sharedService.cardListFood;
-      this.sharedService.addOptionsToFood(this.currentFoodId, this.optionsSelectedListe )
-      console.log();
+      this.disable = false;
+      if (this.checkboxValue) {
 
-      this.optionsSelectedListe.push(opt);
-      this.totatDessertPrice = +  opt.price;
+        this.cardListe = this.sharedService.cardListFood;
 
 
-    } else {
-      this.sharedService.removeOptionsToFood(this.currentFoodId, opt)
-    //  const index=  this.optionsSelectedListe.indexOf(opt, 0);
-    //   if(index > -1){
-    //     this.optionsSelectedListe.splice(index, 1);
-    //     this.totatDessertPrice = this.totatDessertPrice - opt.price;
 
-    //   }
-      console.log('Checkbox désélectionné');
+        this.sharedService.addOptionsToFood(this.currentFoodId, this.optionsSelectedListe )
+
+        this.optionsSelectedListe.push(opt);
+        this.totatDessertPrice = +  opt.price;
+
+
+
+      } else {
+        this.sharedService.removeOptionsToFood(this.currentFoodId, opt)
+      //  const index=  this.optionsSelectedListe.indexOf(opt, 0);
+      //   if(index > -1){
+      //     this.optionsSelectedListe.splice(index, 1);
+      //     this.totatDessertPrice = this.totatDessertPrice - opt.price;
+
+      //   }
+        console.log('Checkbox désélectionné');
+      }
+    }else{
+      this.disable = true;
     }
+
 
   }
 
   showFoodPge(){
-    this.navCtrl.navigateForward(['/food']);
+    this.navCtrl.navigateBack(['/food']);
+  }
+
+  async showLoading() {
+     this.loading = await this.loadingCtrl.create({
+      message: 'Un instant votre commnande est cours...',
+      duration: 3000,
+    });
+
+    this.loading.present();
   }
 
   incrementQuantity(food:any){
@@ -162,7 +184,7 @@ export class FoodDetailPage implements OnInit {
         }
       }
     let order :any =  {
-        // "itable": "api/tables/"+this.tableId,
+        "itable": "api/tables/"+this.tableId,
         "foodOrders" : [
           {
             "food": "api/food/"+ parseInt(food.id),
@@ -177,9 +199,16 @@ export class FoodDetailPage implements OnInit {
     console.log(order);
      this.services.makeOrdering(order).then(data=>{
 
-      this.showModal = true;
-
+      this.showLoading
      }).catch(error=>{
+
+      this.loading.dismiss();
+      let message =  "Erreur veillez ressayer svp.";
+      let color = 'warning'
+      this.presentToast(message, color);
+     }).finally(()=>{
+      this.loading.dismiss();
+      this.showModal = true;
 
      })
 
@@ -187,6 +216,16 @@ export class FoodDetailPage implements OnInit {
 
 
   }
+
+  async presentToast( message:string, color:string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      color: color
+    });
+    toast.present();
+  }
+
 
 
   showDetailPage(id:number){

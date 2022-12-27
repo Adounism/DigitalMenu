@@ -130,34 +130,23 @@
 
   <ion-grid >
     <ion-row >
-      <ion-col style="background-color:rgba(36,39,46,255)" size="3" >
-        <div style="align-items:center; display: flex; justify-content:space-between; flex-direction: column; ">
+      <ion-col style="background-color:rgba(36,39,46,255);  " size="3" >
 
-          <!-- <div  *ngFor="let item of categoryListe" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
-            <ion-icon style="color: green; width: 40px; height: 40px;" [name]="item.image"></ion-icon>
-            <ion-label style="font-size: 8px; color:white">{{item.name}}</ion-label>
-          </div> -->
 
-          <div  *ngFor="let item of categoryListe" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
-            <ion-icon style="color: green; width: 40px; height: 40px;" [name]="item.iconClass"></ion-icon>
-            <ion-label style="font-size: 10px; color:white">{{item.name}}</ion-label>
+          <div style="align-items:center; display: flex; justify-content:space-between; flex-direction: column;">
+            <div  *ngFor="let item of categoryListe" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
+              <ion-icon class="category-icon" [name]="item.iconClass"></ion-icon>
+              <ion-label style="font-size: 10px; color:white">{{item.name}}</ion-label>
+            </div>
           </div>
-
-          <!-- <div  *ngFor="let item of navItems" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
-            <ion-icon style="color: green; width: 40px; height: 40px;" [name]="item.iconClass"></ion-icon>
-            <ion-label style="font-size: 8px; color:white">{{item.label}}</ion-label>
-          </div> -->
-
-        </div>
-
 
 
       </ion-col>
       <ion-col style="background-color:#1f1f25" size="9" >
-        <ion-grid>
-          <ion-col *ngFor="let food of foodInCategoryListe">
-            <div  class="checkbox-content" (click)="showDetailPage(food.id)" [style.--img-src]="'url(' + BaseUrl+ food.image + ')'">
-              <div class="mino"></div>
+        <ion-grid class="food-grid" >
+          <ion-col  *ngFor="let food of foodInCategoryListe" size="4">
+            <div  class="checkbox-content" (click)="showDetailPage(food.id)"  [style.--img-src]="'url(' + BaseUrl+ food.image + ')'">
+              <div *ngIf="cardFoodId === food.id" class="mino"></div>
               <div class="item-info" >
 
                 <div>
@@ -173,30 +162,38 @@
 
               </div>
 
-              <ion-checkbox mode="ios"  class="checkbox-item" (ionChange)="updateCardList(food)"></ion-checkbox>
+              <div class="checkbox-item">
+                <ion-label>1</ion-label>
+              </div>
+
             </div>
           </ion-col>
 
-          <ion-col >
-            <div class="checkbox-content" [style.--img-src]="'url(https://images.pexels.com/photos/220911/pexels-photo-220911.jpeg?auto=compress&cs=tinysrgb)'">
-              <div class="item-info">
+          <ion-col  *ngFor="let food of foodInCategoryListe" size="4">
+            <div  class="checkbox-content" (click)="showDetailPage(food.id)"  [style.--img-src]="'url(' + BaseUrl+ food.image + ')'">
+              <div *ngIf="cardFoodId === food.id" class="mino"></div>
+              <div class="item-info" >
 
                 <div>
-                  <ion-label  class="checkbox-title">Burger</ion-label>
+                  <ion-label class="checkbox-title">{{food.name}}</ion-label>
                 </div>
                 <div>
 
-                  <ion-label class="checkbox-price">34$</ion-label>
+                  <ion-label class="checkbox-price">{{food.price}}</ion-label>
                 </div>
 
                 <div >
                 </div>
-                <!-- <ion-icon style="color: white; width: 30px; height: 30px;"  name="remove-circle-outline"></ion-icon> -->
+
               </div>
 
-              <ion-checkbox mode="ios"  class="checkbox-item" ></ion-checkbox>
+              <div class="checkbox-item">
+                <ion-label>1</ion-label>
+              </div>
+
             </div>
           </ion-col>
+
         </ion-grid>
       </ion-col>
     </ion-row>

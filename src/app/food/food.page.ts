@@ -26,6 +26,7 @@ export class FoodPage implements OnInit {
   foodSelectedListe:any[] =[];
   selectedFood:any;
   quantity=0;
+  cardFoodId:any;
   BaseUrl= environment.ressoursseUrl;
 
 
@@ -56,6 +57,29 @@ export class FoodPage implements OnInit {
 
   ngOnInit() {
     // this.activeItem = this.navItems[0];
+    this.cardListFood =  this.sharedservice.cardListFood;
+    console.log(this.cardListFood);
+
+
+  }
+
+  ionViewWillEnter() {
+    console.log("Hello");
+    this.cardListFood = this.sharedservice.cardListFood;
+
+    console.log(this.cardListFood);
+
+    this.cardListFood.forEach(element=>{
+
+      this.cardFoodId = element.id;
+    });
+
+
+  }
+
+  ionViewWillUnload() {
+    console.log("Hello");
+    this.chekFoodInCard();
   }
 
   setActive(item: any) {
@@ -75,6 +99,19 @@ export class FoodPage implements OnInit {
 
 
     });
+  }
+
+  chekFoodInCard(){
+
+    this.cardListFood = this.sharedservice.cardListFood;
+
+    console.log(this.cardListFood);
+
+    this.cardListFood.forEach(element=>{
+
+      this.cardFoodId = element.id;
+    });
+
   }
 
   getFoodInCategory(name:string){
@@ -108,52 +145,6 @@ export class FoodPage implements OnInit {
   }
 
 
-  checkboxChanged(event: any) {
-    console.log(this.myCheckbox.checked);
-    // console.log(event.target.value);
-    const food = event.target.value;
-    food.quantity = 0;
-
-    console.log(food);
-
-
-    if(this.myCheckbox.checked){
-      this.cardListFood.push(event.target.value);
-
-
-    }else{
-      const index=  this.cardListFood.indexOf(event.target.value, 0);
-      if(index > -1){
-        this.cardListFood.splice(index, 1);
-      }
-      console.log(this.cardListFood);
-
-    }
-
-
-  }
-
-
-    // Method to handle the ionChange event
-    handleCheckboxChange(event:any) {
-      // Get the selected food from the event
-      this.selectedFood = event.target.value;
-      console.log(this.selectedFood);
-
-      // If the checkbox is checked, add the selected food to the cardListFood array
-      if (event.detail.checked) {
-        this.cardListFood.push(this.selectedFood);
-        console.log(this.cardListFood);
-      }
-      // If the checkbox is not checked, remove the selected food from the cardListFood array
-      else {
-        const index = this.cardListFood.indexOf(this.selectedFood);
-        if (index > -1) {
-          this.cardListFood.splice(index, 1);
-          console.log(this.cardListFood);
-        }
-      }
-    }
 
     updateCardList(food: any) {
       this.sharedservice.updateCardList(food);
