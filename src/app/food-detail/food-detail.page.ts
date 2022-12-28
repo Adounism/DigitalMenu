@@ -184,7 +184,7 @@ export class FoodDetailPage implements OnInit {
         }
       }
     let order :any =  {
-        "itable": "api/tables/"+this.tableId,
+        // "itable": "api/tables/"+this.tableId,
         "foodOrders" : [
           {
             "food": "api/food/"+ parseInt(food.id),
@@ -199,16 +199,18 @@ export class FoodDetailPage implements OnInit {
     console.log(order);
      this.services.makeOrdering(order).then(data=>{
 
-      this.showLoading
+
+      this.showModal = true;
+      this.showLoading();
      }).catch(error=>{
 
-      this.loading.dismiss();
-      let message =  "Erreur veillez ressayer svp.";
+      this.loadingCtrl.dismiss();
+      let message =  error.error.message;
       let color = 'warning'
       this.presentToast(message, color);
      }).finally(()=>{
-      this.loading.dismiss();
-      this.showModal = true;
+      this.loadingCtrl.dismiss();
+
 
      })
 

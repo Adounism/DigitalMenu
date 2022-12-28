@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonCheckbox, NavController } from '@ionic/angular';
+import { IonCheckbox, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { HttpServices } from '../services/http-services.service';
 import { SharedService } from '../services/shared.service';
@@ -27,8 +27,17 @@ export class FoodPage implements OnInit {
   selectedFood:any;
   quantity=0;
   cardFoodId:any;
+  loading:any;
+  totatDessertPrice:number= 0;
+  optionsSelectedListe:any[]=[];
+  cardListe:any[]=[];
+  foodInCategory:any[]=[];
+  tableId:any;
+  showModal:boolean = false;
+  totalPrice:number = 0;
+  searchText:any;
   BaseUrl= environment.ressoursseUrl;
-
+  @ViewChild('modal', { static: false }) modal!: ModalController;
 
   navItems: any[] = [
     {
@@ -50,14 +59,20 @@ export class FoodPage implements OnInit {
   ];
 
   activeItem: any;
-  constructor(private service:HttpServices, private sharedservice:SharedService, public navCtrl: NavController) {
+  constructor(private service:HttpServices, private sharedservice:SharedService,
+     public navCtrl: NavController,
+     private loadingCtrl: LoadingController,
+     public toastController: ToastController,
+     private modalController: ModalController) {
     this.getAllCategories();
 
   }
 
   ngOnInit() {
     // this.activeItem = this.navItems[0];
-    this.cardListFood =  this.sharedservice.cardListFood;
+    // this.cardListFood =  this.sharedservice.cardListFood;
+    this.cardListe = this.sharedservice.cardListFood;
+    this.totalPrice = this.sharedservice.totalPrice;
     console.log(this.cardListFood);
 
 
@@ -152,15 +167,128 @@ export class FoodPage implements OnInit {
     }
 
 
-    incrementQuantity(food:any){
-      this.sharedservice.incrementFoodQuantity(food);
+    orderFoods(){
+      this.cardListe.forEach(food => {
+
+
+        this.totalPrice = + food.price;
+        let options = [];
+        let optionsInFood= food.options;
+        if(food.options){
+
+          for(let opt of optionsInFood){
+            options.push("api/options/"+opt.id);
+
+          }
+        }
+      let order :any =  {
+          // "itable": "api/tables/"+this.tableId,
+          "foodOrders" : [
+            {
+              "food": "api/food/"+ parseInt(food.id),
+              "quantity": food.quantity,
+              "options":options
+            }
+          ]
+
+        }
+
+
+      console.log(order);
+       this.service.makeOrdering(order).then(data=>{
+
+
+        this.showModal = true;
+        this.showLoading();
+       }).catch(error=>{
+
+        this.loadingCtrl.dismiss();
+        let message =  error.error.message;
+        let color = 'warning'
+        this.presentToast(message, color);
+       }).finally(()=>{
+        this.loadingCtrl.dismiss();
+
+
+       })
+
+      });
+
+
+    }
+
+    async presentToast( message:string, color:string) {
+      const toast = await this.toastController.create({
+        message: message,
+        duration: 2000,
+        color: color
+      });
+      toast.present();
+    }
+
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: 'example-modal',
+
+    componentProps: {
+        modal: 'modal'
+        }
+   });
+      return await modal.present();
+    }
+
+
+    async closeModal() {
+      await this.modal.dismiss();
+      }
+
+      async showLoading() {
+        this.loading = await this.loadingCtrl.create({
+         message: 'Un instant votre commnande est cours...',
+         duration: 3000,
+       });
+
+       this.loading.present();
+     }
+
+     clearSearch(event:any){
+
+      this.getFoodInCategory(this.activeItem.name);
+
+     }
+
+     searchFood(event:any){
+      this.foodInCategoryListe = [];
+      console.log(this.searchText);
+
+      if(event.target.value != ""){
+
+        this.service.searchFood(event.target.value).subscribe(data=>{
+          console.log(data);
+          this.foodInCategoryListe = data;
+
+        })
+      }else{
+        this.getFoodInCategory(this.activeItem.name);
+      }
+     }
+
+     incrementQuantity(food:any){
+      this.sharedservice.incrementFoodQuantity(food)
+      this.totalPrice = this.sharedservice.totalPrice;
     }
 
     decrementQuantity(food:any){
       this.sharedservice.decrementQuantity(food);
-
+      this.totalPrice = this.sharedservice.totalPrice;
     }
 
+
+    removeFoodToCard(food:any){
+      this.sharedservice.removeToCard(food);
+      this.totalPrice = this.sharedservice.totalPrice;
+    }
 
 
 }

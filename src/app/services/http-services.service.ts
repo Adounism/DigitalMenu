@@ -138,6 +138,15 @@ export class HttpServices {
     )
   }
 
+  searchFood(food_name:string):Observable<any>{
+
+    return this.http.get(`${this.foods.allFoods}?name=${food_name}`).pipe(
+      map(data=>{
+        return data;
+      })
+    )
+  }
+
   makeOrdering(data: any):Promise<any>{
     const httpOptions = {
       headers: new HttpHeaders({
