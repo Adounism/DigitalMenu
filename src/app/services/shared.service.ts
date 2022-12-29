@@ -13,7 +13,7 @@ export class SharedService {
 
   addToCard(food:any){
     food.quantity = 1;
-    this.totalPrice = + food.price;
+    this.totalPrice =  + (food.price / 100);
     this.cardListFood.push(food);
   }
 
@@ -22,7 +22,7 @@ export class SharedService {
 
     const index = this.cardListFood.indexOf(food);
     if (index > -1) {
-      this.totalPrice = - food.price;
+      this.totalPrice = - (food.price / 100);
       this.cardListFood.splice(index, 1);
     }
   }
@@ -30,7 +30,7 @@ export class SharedService {
 
   updateCardList(food: any) {
     food.quantity = 1;
-    this.totalPrice = food.quantity *food.price;
+    this.totalPrice = food.quantity * (food.price / 100);
     const index = this.cardListFood.indexOf(food);
     if (index > -1) {
       this.cardListFood.splice(index, 1);
@@ -45,7 +45,7 @@ export class SharedService {
 
   incrementFoodQuantity(food:any){
     food.quantity  = food.quantity +1;
-    this.totalPrice = food.quantity * food.price;
+    this.totalPrice = food.quantity * (food.price / 100);
     console.log(this.totalPrice);
   }
 
@@ -54,7 +54,7 @@ export class SharedService {
     if(food.quantity > 1){
 
       food.quantity  = food.quantity -1;
-      this.totalPrice = food.quantity * food.price;
+      this.totalPrice = food.quantity * (food.price / 100);
     }
 
   }
@@ -64,7 +64,7 @@ export class SharedService {
     sharedCardFood["options"] = options;
     let index = this.cardListFood.indexOf(sharedCardFood);
     this.cardListFood[index]["options"] = options;
-    this.totalPrice = + options.price;
+    this.totalPrice = this.totalPrice  + (options.price / 100);
 
 
   }
@@ -75,8 +75,13 @@ export class SharedService {
     const index=  optionsListe.indexOf(options, 0);
     if(index > -1){
       this.cardListFood[index]["options"].splice(index, 1);
-      this.totalPrice = -options.price;
+      this.totalPrice = this.totalPrice - (options.price / 100);
     }
+  }
+
+  clearSharedData(){
+    this.cardListFood = [];
+
   }
 
 

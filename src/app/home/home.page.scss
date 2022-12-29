@@ -94,3 +94,42 @@ ion-header {
 .toolbar {
   background-color: #615a48;
 }
+
+.star-rating {
+  --color: #f2c40e;
+  --border-color: #d9d9d9;
+  --background-color: #ffffff;
+  --icon-color: #d9d9d9;
+
+  input[type=radio] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1;
+    font-size: 2em;
+    color: var(--icon-color);
+  }
+
+  input[type=radio]:checked + label {
+    color: var(--color);
+  }
+
+  .icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.25em;
+    border: 0.1em solid var(--border-color);
+    border-radius: 50%;
+    background-color: var(--background-color);
+    transition: all 0.2s ease-in-out;
+  }
+
+  input[type=radio]:checked + label .icon {
+    background-color: var(--color);
+    border-color: var(--color);
+  }
+}

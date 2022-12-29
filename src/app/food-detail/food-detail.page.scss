@@ -37,7 +37,16 @@ span{
 ion-slide{
 
    width: 100px;
-   height: 100px;
+   height: 130px;
+
+   background: var(--img-src), rgba(0, 0, 0, .40);
+   background-size: cover;
+   border-radius: 10px;
+   display: flex;
+   position: relative;
+   justify-content: space-between;
+   aspect-ratio: 1 / 1;
+
    img{
      border-radius: 10px;
    }

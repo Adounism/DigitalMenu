@@ -156,4 +156,10 @@ export class HttpServices {
     return this.http.post(`${this.ordering.makeOrderings}`, data, httpOptions).toPromise();
 
   }
+
+  getAllOrders():Observable<any>{
+    return this.http.get(`${this.foodOrders.foodOrder}`).pipe(map(data=>{
+      return data;
+    }))
+  }
 }
