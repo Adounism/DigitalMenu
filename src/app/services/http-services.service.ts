@@ -91,8 +91,8 @@ export class HttpServices {
     }
   }
 
-  getFoodInCategorys(name:string): Observable<any>{
-    return this.http.get(`${this.foods.allFoods}?category=${name}`).pipe(map(data=>{
+  getFoodInCategorys(id:string): Observable<any>{
+    return this.http.get(`${this.foods.allFoods}?category=${id}`).pipe(map(data=>{
       console.log(data);
       return data;
     }))
