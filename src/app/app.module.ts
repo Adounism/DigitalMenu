@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StatusBar } from '@capacitor/status-bar';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { ModalPageModule } from './modal/modal.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+
 
     AppRoutingModule,
   HttpClientModule],

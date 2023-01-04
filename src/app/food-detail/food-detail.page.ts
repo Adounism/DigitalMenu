@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { FoodPage } from '../food/food.page';
@@ -38,6 +38,7 @@ export class FoodDetailPage implements OnInit {
     private loadingCtrl: LoadingController,
      public navCtrl: NavController, private sharedService:SharedService,
      public toastController: ToastController,
+     private route: Router,
      private modalController: ModalController) {
     this.currentFoodId = router.snapshot.params['id'];
     this.pushPage = FoodPage;
@@ -176,6 +177,7 @@ export class FoodDetailPage implements OnInit {
 
   orderFoods(){
 
+
     this.showLoading();
     this.cardListe.forEach(food => {
 
@@ -191,7 +193,7 @@ export class FoodDetailPage implements OnInit {
         }
       }
     let order :any =  {
-        // "itable": "api/tables/"+this.tableId,
+        "itable": "api/tables/"+this.tableId,
         "foodOrders" : [
           {
             "food": "api/food/"+ parseInt(food.id),
@@ -203,11 +205,13 @@ export class FoodDetailPage implements OnInit {
       }
 
 
-    console.log(order);
+
      this.services.makeOrdering(order).then(data=>{
 
 
       this.loadingCtrl.dismiss();
+      this.openModal();
+
 
 
      }).catch(error=>{
@@ -217,15 +221,22 @@ export class FoodDetailPage implements OnInit {
       let color = 'warning'
       this.presentToast(message, color);
      }).finally(()=>{
-      this.showModal = true;
+
       this.loadingCtrl.dismiss();
       this.sharedService.clearSharedData();
-
-
-     })
+      localStorage.removeItem("table");
+      this.redirectTime();
+     });
 
     });
 
+
+  }
+
+  redirectTime(){
+    setTimeout(() => {
+   this.route.navigate(["/home"]);
+  }, 5000);
 
   }
 
@@ -248,9 +259,7 @@ export class FoodDetailPage implements OnInit {
     const modal = await this.modalController.create({
       component: 'example-modal',
 
-      componentProps: {
-        modal: 'modal'
-        }
+
     });
     return await modal.present();
   }

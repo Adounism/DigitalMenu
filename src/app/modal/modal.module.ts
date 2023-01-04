@@ -7,12 +7,22 @@ import { IonicModule } from '@ionic/angular';
 import { ModalPageRoutingModule } from './modal-routing.module';
 
 import { ModalPage } from './modal.page';
+import { RouterModule, Routes } from '@angular/router';
+
+// const routes: Routes = [
+//   {
+//     path: '',
+//     component: ModalPage
+//   }
+// ];
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    // RouterModule.forChild(routes),
     ModalPageRoutingModule
   ],
   declarations: [ModalPage]
