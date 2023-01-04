@@ -133,7 +133,8 @@ export class FoodDetailPage implements OnInit {
   }
 
   showFoodPge(){
-    this.navCtrl.navigateBack(['/food']);
+    // this.navCtrl.navigateBack(['/food']);
+    this.navCtrl.back();
   }
 
   async showLoading() {
@@ -163,13 +164,19 @@ export class FoodDetailPage implements OnInit {
 
   getAllFoodIncategory(category:string){
     this.services.getFoodInCategorys(category).subscribe(data=>{
+
       this.foodInCategory= data;
       console.log(this.foodInCategory);
 
     })
   }
 
+
+
+
   orderFoods(){
+
+    this.showLoading();
     this.cardListe.forEach(food => {
 
 
@@ -200,8 +207,9 @@ export class FoodDetailPage implements OnInit {
      this.services.makeOrdering(order).then(data=>{
 
 
-      this.showModal = true;
-      this.showLoading();
+      this.loadingCtrl.dismiss();
+
+
      }).catch(error=>{
 
       this.loadingCtrl.dismiss();
@@ -209,7 +217,9 @@ export class FoodDetailPage implements OnInit {
       let color = 'warning'
       this.presentToast(message, color);
      }).finally(()=>{
+      this.showModal = true;
       this.loadingCtrl.dismiss();
+      this.sharedService.clearSharedData();
 
 
      })
@@ -233,6 +243,7 @@ export class FoodDetailPage implements OnInit {
   showDetailPage(id:number){
     this.navCtrl.navigateForward(['/food-detail/'+id ]);
   }
+
   async openModal() {
     const modal = await this.modalController.create({
       component: 'example-modal',
@@ -246,8 +257,10 @@ export class FoodDetailPage implements OnInit {
 
 
   async closeModal() {
+    console.log("hello");
+
     await this.modal.dismiss();
-    }
+  }
 
 
 

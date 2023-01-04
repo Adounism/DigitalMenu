@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  BaseUrl : "http://127.0.0.1:8000/api/",
-  ressoursseUrl : "http://127.0.0.1:8000/"
+  // BaseUrl : "http://127.0.0.1:8000/api/",
+  // ressoursseUrl : "http://127.0.0.1:8000/"
+  BaseUrl : "https://restau.ecoboostergroup.com/api/",
+  ressoursseUrl : "https://restau.ecoboostergroup.com/"
 };
 
 /*

@@ -104,16 +104,17 @@
         <ion-grid class="food-grid" >
 
           <ion-col  *ngFor="let food of foodInCategoryListe" size="4">
-            <div  class="checkbox-content" (click)="showDetailPage(food.id)"    (ionCancel)="clearSearch($event)" [style.--img-src]="'url(' + BaseUrl+ food.image + ')'">
+            <div  class="content"  [routerLink]="['/food-detail/',food.id]"  routerDirection="forward" >
+              <img class="checkbox-content" src="{{BaseUrl+ food.image}}" alt="">
               <div *ngIf="cardFoodId === food.id" class="mino"></div>
               <div class="item-info" >
 
                 <div>
-                  <ion-label class="checkbox-title">{{food.name}}</ion-label>
+                  <ion-label id="foodName" class="checkbox-title">{{food.name}}</ion-label>
                 </div>
                 <div>
 
-                  <ion-label class="checkbox-price">{{food.price / 100}}</ion-label>
+                  <ion-label id="foodPrice" class="checkbox-price">{{food.price / 100}}</ion-label>
                 </div>
 
                 <div >
@@ -122,32 +123,7 @@
               </div>
 
               <div  *ngIf="cardFoodId === food.id" class="checkbox-item">
-                <ion-label>{{food.quantity}}</ion-label>
-              </div>
-
-            </div>
-          </ion-col>
-
-          <ion-col  *ngFor="let food of foodInCategoryListe" size="4">
-            <div  class="checkbox-content" (click)="showDetailPage(food.id)"  [style.--img-src]="'url(' + BaseUrl+ food.image + ')'">
-              <div *ngIf="cardFoodId === food.id" class="mino"></div>
-              <div class="item-info" >
-
-                <div>
-                  <ion-label class="checkbox-title">{{food.name}}</ion-label>
-                </div>
-                <div>
-
-                  <ion-label class="checkbox-price">{{food.price}}</ion-label>
-                </div>
-
-                <div >
-                </div>
-
-              </div>
-
-              <div class="checkbox-item">
-                <ion-label>1</ion-label>
+                <!-- <ion-label>{{food.quantity}}</ion-label> -->
               </div>
 
             </div>

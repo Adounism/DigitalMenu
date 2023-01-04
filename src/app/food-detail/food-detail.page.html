@@ -62,7 +62,7 @@
 </ion-menu>
 
 
-<div  id="main-content">
+<div  id="main-content" >
   <ion-header>
     <ion-toolbar class="ion-color" [style.background-color]="primary">
 
@@ -89,8 +89,8 @@
   </ion-header>
 </div>
 
-<ion-content>
-  <ion-grid class="ion-no-padding">
+<ion-content >
+  <ion-grid class="ion-no-padding" >
     <ion-row>
 
       <ion-col style="background-color:rgba(36,39,46,255);" size="2" [routerLink]="['/food']" >
@@ -124,8 +124,8 @@
 
         <ion-col style="padding-top:0; padding-bottom: 0;">
 
-          <ion-card style="background-color:rgba(36,39,46,255);" >
-            <img alt="Silhouette of mountains" height="150" width="100%" src="{{BaseUrl+currentFoods?.image}} "/>
+          <ion-card class="food-card"  >
+            <img alt="Silhouette of mountains" class="food" height="150" width="100%" src="{{BaseUrl+currentFoods?.image}} "/>
             <ion-card-header style="padding-top: 0;">
               <ion-card-title color="white">{{currentFoods?.name}}</ion-card-title>
 
@@ -170,7 +170,7 @@
           <div class="parent" >
             <div class="contenair" style="position: relative;">
 
-              <ion-card style="background-color:rgba(36,39,46,255);" >
+              <ion-card class="slide-card" style="background-color:rgba(36,39,46,255);" >
                 <ion-card-header class="ion-no-padding ion-text-center"  style="font-size: 10px;">
                   <ion-label style="color: white;">Realize Items You May Like</ion-label>
                 </ion-card-header>
@@ -182,8 +182,8 @@
               <div class="slide" style="position: absolute; top:15px; width: 90%; z-index: 1;">
                 <ion-slides >
 
-                  <ion-slide class="ion-no-padding" *ngFor="let food of foodInCategory" (click)="showDetailPage(food.id)" [style.--img-src]="'url(' + BaseUrl+ food.image + ')'" >
-                    <!-- <img src="{{BaseUrl+food.image}}" style="width: 100%; " alt=""> -->
+                  <ion-slide id="defil-food" class="ion-no-padding" *ngFor="let food of foodInCategory" (click)="showDetailPage(food.id)"  >
+                    <img src="{{BaseUrl+food.image}}"  alt="">
                     <ion-label class="menu-name" >{{food.name}}</ion-label>
                     <ion-label class="menu-price" >{{food.price / 100}}</ion-label>
                   </ion-slide >

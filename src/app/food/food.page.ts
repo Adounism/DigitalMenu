@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonCheckbox, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { HttpServices } from '../services/http-services.service';
@@ -37,6 +38,7 @@ export class FoodPage implements OnInit {
   totalPrice:number = 0;
   searchText:any;
   BaseUrl= environment.ressoursseUrl;
+  imageEncoding:string = "";
   @ViewChild('modal', { static: false }) modal!: ModalController;
 
   navItems: any[] = [
@@ -63,6 +65,7 @@ export class FoodPage implements OnInit {
      public navCtrl: NavController,
      private loadingCtrl: LoadingController,
      public toastController: ToastController,
+     private router: Router,
      private modalController: ModalController) {
     this.getAllCategories();
 
@@ -79,7 +82,6 @@ export class FoodPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log("Hello");
     this.cardListFood = this.sharedservice.cardListFood;
 
     console.log(this.cardListFood);
@@ -93,7 +95,6 @@ export class FoodPage implements OnInit {
   }
 
   ionViewWillUnload() {
-    console.log("Hello");
     this.chekFoodInCard();
   }
 
@@ -101,7 +102,7 @@ export class FoodPage implements OnInit {
     this.activeItem = item;
     this.currentCategory =  item;
     console.log(this.currentCategory);
-    this.getFoodInCategory(this.currentCategory.name);
+    this.getFoodInCategory(this.currentCategory.id);
 
   }
 
@@ -129,8 +130,11 @@ export class FoodPage implements OnInit {
 
   }
 
-  getFoodInCategory(name:string){
-    this.service.getFoodInCategorys(name).subscribe(data=>{
+  getFoodInCategory(id:string){
+    this.foodInCategoryListe = [];
+    this.service.getFoodInCategorys(id).subscribe(data=>{
+
+      this.removeCharacter(data);
       this.foodInCategoryListe = data;
       console.log(this.foodInCategoryListe);
 
@@ -138,7 +142,8 @@ export class FoodPage implements OnInit {
   }
 
   showDetailPage(id:number){
-    this.navCtrl.navigateForward(['/food-detail/'+id ]);
+    // this.navCtrl.navigateForward(['/food-detail/'+id ]);
+    // this.router.navigate()
   }
 
 
@@ -215,6 +220,15 @@ export class FoodPage implements OnInit {
       });
 
 
+    }
+
+    removeCharacter(data:any){
+
+      this.imageEncoding = data.image
+      // this.imageEncoding = encodeURIComponent(this.BaseUrl + data["image"].trim());
+      console.log(this.imageEncoding);
+
+      return this.imageEncoding;
     }
 
     async presentToast( message:string, color:string) {

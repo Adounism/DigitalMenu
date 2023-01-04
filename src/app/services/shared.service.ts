@@ -81,6 +81,7 @@ export class SharedService {
 
   clearSharedData(){
     this.cardListFood = [];
+    this.totalPrice = 0;
 
   }
 
