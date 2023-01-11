@@ -1,28 +1,25 @@
-ion-header{
-  .promo{
+ion-header {
+  .promo {
     height: 150px;
     left: 0px;
     top: 0px;
-    background: rgba(36,39,46,255);
+    background: rgba(36, 39, 46, 255);
   }
-
 }
 
 ion-content {
   margin: 0;
   padding: 0;
-  .header{
-    div{
-      ion-searchbar{
+  .header {
+    div {
+      ion-searchbar {
         margin: 50px;
       }
-
     }
   }
-
 }
 
-.header{
+.header {
   width: 375px;
   height: 175px;
   left: 0px;
@@ -33,137 +30,200 @@ ion-content {
 ion-grid {
   height: 100%;
   padding: 0;
-  ion-row{
-    height: 100%;
+  ion-row {
+    // height: 100%;
+    &.left-side {
+      display: grid;
+      grid-template-columns: 1fr 9fr;
+      .nav__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        color: white;
+        img {
+          height: 3rem;
+          width: 3rem;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        ion-label {
+          font-size: 0.8rem;
+          margin: 0.1rem 0;
+          font-weight: 500;
+          text-align: center;
+        }
+      }
+    }
+
+    .food-card-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .4rem;
+      .food-item {
+        height: 150px;
+        overflow: hidden;
+        border-radius: 14px;
+        position: relative;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+        .item-info {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          color: white;
+          #foodName{
+            font-weight: 700;
+            font-size: 1.2rem;
+          }
+        }
+        &::before {
+          position: absolute;
+          content: "";
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: #4c4c4c6b;
+        }
+      }
+    }
   }
 }
 
 ion-menu-button {
-    margin-left: 10px;
+  margin-left: 10px;
+}
+
+.filter {
+  margin-right: 10px;
+}
+
+.notification {
+  margin: 0;
+  padding: 0;
+  ion-badge {
+    background-color: #f5576c;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: -4%;
+    right: -20%;
   }
+}
 
-  .filter{
-    margin-right: 10px;
+.card {
+  --ion-item-background: rgba(36, 39, 46, 255);
+  --inner-padding-end: 0px;
+  ion-label {
+    color: #fff;
   }
-
-  .notification{
-    margin: 0;
-    padding: 0;
-    ion-badge{
-      background-color: #F5576C;
-      border-radius: 50%;
-      width: 15px;
-      height: 15px;
-      position:absolute;
-      top: -4%;
-      right: -20%;
-    }
+  h3 {
+    margin-bottom: 10px;
   }
-
-  .card{
-    --ion-item-background: rgba(36,39,46,255);
-    --inner-padding-end: 0px;
-    ion-label{
-      color: #fff;
-    }
-    h3{
-      margin-bottom: 10px;
-    }
+}
+ion-thumbnail {
+  img {
+    border-radius: 5px;
   }
-  ion-thumbnail{
-    img{
-      border-radius: 5px;
-    }
+}
+
+ion-menu {
+  --max-width: 75%;
+  --background: rgba(36, 39, 46, 255);
+  .close {
+    font-size: 12px;
+    color: #fff;
   }
-
-  ion-menu{
-    --max-width:75%;
-    --background:rgba(36,39,46,255);
-    .close{
-      font-size: 12px;
-      color: #fff;
-
-    }
-    .content{
-      margin-top: 40px;
-      .cart-control{
-        display: flex;
-        text-align: center;
-        span{
-          background-color: forestgreen;
-          height: 20px;
-          width: 20px;
-          font-size: medium;
-        }
-        ion-label{
-          margin-left: 10px;
-          margin-right: 10px;
-          text-align: center;
-        }
-      }
-      .head{
-        display: flex;
-
-        align-items: center;
-        flex-direction: column;
-        justify-content:space-between;
-
-      }
-    }
-    .cart-count{
-      background-color: rgb(253, 31, 31);
-      border-radius: 20px;
-      height: 35px;
-      padding: 8px;
-      font-size: 12px;
-      ion-label{
-        color: #fff;
-      }
-    }
-
-  }
-
-
-  .search{
-    ion-item{
-      --border-radius: 10px;
-      --box-shadow: 0px 13px 30px 0px rgba(0,0,0,0.09);
-      padding: 8px;
-      ion-icon{
-        margin-right: 16px;
-
-      }
-      ion-input{
-        padding-left: 10px !important;
-        border-left: 1px solid #F4F4F4;
-      }
-    }
-  }
-  .food-grid{
-    @media only screen and (min-width: 768px) {
-      ion-col {
-        flex-wrap: wrap;
-        max-width: 25%;
-      }
-    }
-  }
-
-  .category-icon{
-    color: green;
-    width: 40px;
-    height: 40px;
-
-    @media only screen and (min-width: 768px) {
-
-      width: 60px;
-      height: 60px;
-
-    }
-
-  }
-
   .content {
-    background: var(--img-src), rgba(0, 0, 0, .40);
+    margin-top: 40px;
+    .cart-control {
+      display: flex;
+      text-align: center;
+      span {
+        background-color: forestgreen;
+        height: 20px;
+        width: 20px;
+        font-size: medium;
+      }
+      ion-label {
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: center;
+      }
+    }
+    .head {
+      display: flex;
+
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+  .cart-count {
+    background-color: rgb(253, 31, 31);
+    border-radius: 20px;
+    height: 35px;
+    padding: 8px;
+    font-size: 12px;
+    ion-label {
+      color: #fff;
+    }
+  }
+}
+
+.search {
+  ion-item {
+    --border-radius: 10px;
+    --box-shadow: 0px 13px 30px 0px rgba(0, 0, 0, 0.09);
+    padding: 8px;
+    ion-icon {
+      margin-right: 16px;
+    }
+    ion-input {
+      padding-left: 10px !important;
+      border-left: 1px solid #f4f4f4;
+    }
+  }
+}
+.food-grid {
+  @media only screen and (min-width: 768px) {
+    ion-col {
+      flex-wrap: wrap;
+      max-width: 25%;
+    }
+  }
+}
+
+.category-icon {
+  color: green;
+  width: 40px;
+  height: 40px;
+
+  @media only screen and (min-width: 768px) {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.content {
+  background: var(--img-src), rgba(0, 0, 0, 0.4);
+  background-size: cover;
+  background-blend-mode: overlay;
+  border-radius: 10px;
+  display: flex;
+  width: 100%;
+  position: relative;
+  justify-content: space-between;
+  aspect-ratio: 1 / 1;
+
+  img {
+    background: var(--img-src), rgba(0, 0, 0, 0.4);
     background-size: cover;
     background-blend-mode: overlay;
     border-radius: 10px;
@@ -172,103 +232,91 @@ ion-menu-button {
     position: relative;
     justify-content: space-between;
     aspect-ratio: 1 / 1;
-
-    img{
-      background: var(--img-src), rgba(0, 0, 0, .40);
-      background-size: cover;
-      background-blend-mode: overlay;
-      border-radius: 10px;
-      display: flex;
-      width: 100%;
-      position: relative;
-      justify-content: space-between;
-      aspect-ratio: 1 / 1;
-    }
-
-    @media only screen and (min-width: 768px) {
-        display: inline-flex;
-        max-width: 25%;
-        margin: 10px;
-
-    }
-
-    #foodName {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    #foodPrice{
-      position: absolute;
-      top: 20px;
-      left: 0;
-    }
-
-    .mino{
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgb(198,224,191);
-      border-radius: 10px;
-      background: linear-gradient(145deg, rgba(198,224,191,0.30015756302521013) 38%, rgba(70, 209, 88, 0.832) 66%);
-
-    }
-
-    .checkbox-title {
-      color: var(--ion-color-light);
-      font-weight: bold;
-      margin: 8px;
-      width: 100%;
-      height: fit-content;
-      font-size: 20px;
-    }
-
-
-    div .checkbox-price {
-      color: var(--ion-color-light);
-      font-weight: 12px;
-      margin: 8px;
-      font-size: 20px;
-    }
-    .checkbox-item {
-      --background: transparent;
-      --border-color: var(--ion-color-light);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color:#F4F4F4;
-      text-align: center;
-      color:#0a0a0a;
-      align-self: end;
-      margin: 8px;
-    }
   }
 
-  .input-wrapper {
-    /* display: flex; */
-    flex: 1 1 0%;
-    flex-direction: inherit;
-    align-items: inherit;
-    align-self: stretch;
-    text-overflow: ellipsis;
-    overflow: inherit;
-    box-sizing: border-box;
+  @media only screen and (min-width: 768px) {
+    display: inline-flex;
+    max-width: 25%;
+    margin: 10px;
+  }
+
+  #foodName {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  #foodPrice {
+    position: absolute;
+    top: 20px;
+    left: 0;
+  }
+
+  .mino {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgb(198, 224, 191);
+    border-radius: 10px;
+    background: linear-gradient(
+      145deg,
+      rgba(198, 224, 191, 0.30015756302521013) 38%,
+      rgba(70, 209, 88, 0.832) 66%
+    );
+  }
+
+  .checkbox-title {
+    color: var(--ion-color-light);
+    font-weight: bold;
+    margin: 8px;
+    width: 100%;
+    height: fit-content;
+    font-size: 20px;
+  }
+
+  div .checkbox-price {
+    color: var(--ion-color-light);
+    font-weight: 12px;
+    margin: 8px;
+    font-size: 20px;
+  }
+  .checkbox-item {
+    --background: transparent;
+    --border-color: var(--ion-color-light);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #f4f4f4;
+    text-align: center;
+    color: #0a0a0a;
+    align-self: end;
+    margin: 8px;
+  }
 }
 
-.icon{
+.input-wrapper {
+  /* display: flex; */
+  flex: 1 1 0%;
+  flex-direction: inherit;
+  align-items: inherit;
+  align-self: stretch;
+  text-overflow: ellipsis;
+  overflow: inherit;
+  box-sizing: border-box;
+}
+
+.icon {
   cursor: pointer;
   text-align: center;
   display: contents;
-  ion-label{
-
+  ion-label {
     margin-right: 12px;
   }
 }
 
 .nav {
-
   .nav__listitem::before {
     content: "";
     // width: 4rem;
@@ -284,10 +332,7 @@ ion-menu-button {
   }
 }
 
-
-
-
-.nav__listitem-active  {
+.nav__listitem-active {
   display: contents;
   padding: 10px;
   ion-icon {
@@ -295,12 +340,22 @@ ion-menu-button {
     border-radius: 2rem;
     background: rgb(81, 241, 81);
     // border-radius: 20;
-
   }
-  ion-label{
+  ion-label {
     transition: fill 500ms cubic-bezier(0, 0.76, 0.58, 1.43);
     color: green;
   }
-
-
 }
+
+.food-card-container{
+@media screen and (max-width: +-) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.food-card-container{
+@media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
