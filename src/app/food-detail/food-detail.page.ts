@@ -177,7 +177,6 @@ export class FoodDetailPage implements OnInit {
 
   orderFoods(){
 
-
     this.showLoading();
     this.cardListe.forEach(food => {
 
@@ -203,15 +202,12 @@ export class FoodDetailPage implements OnInit {
         ]
 
       }
-
-
-
      this.services.makeOrdering(order).then(data=>{
 
 
       this.loadingCtrl.dismiss();
-      this.openModal();
-
+      this.showModal = true;
+      this.redirectTime();
 
 
      }).catch(error=>{
@@ -225,7 +221,7 @@ export class FoodDetailPage implements OnInit {
       this.loadingCtrl.dismiss();
       this.sharedService.clearSharedData();
       localStorage.removeItem("table");
-      this.redirectTime();
+
      });
 
     });
@@ -236,7 +232,7 @@ export class FoodDetailPage implements OnInit {
   redirectTime(){
     setTimeout(() => {
    this.route.navigate(["/home"]);
-  }, 5000);
+  }, 10000);
 
   }
 
@@ -255,14 +251,22 @@ export class FoodDetailPage implements OnInit {
     this.navCtrl.navigateForward(['/food-detail/'+id ]);
   }
 
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: 'example-modal',
+  // async openModal() {
 
+  //   const modal = await this.modalController.create({
+  //     component: ModalPage,
+  //     cssClass: "example-modal",
 
-    });
-    return await modal.present();
-  }
+  //       componentProps: {
+  //       // You can define the modal content here as an object
+  //       modalContent: {
+  //         title: 'Modal Title',
+  //         message: 'Modal Message'
+  //       }
+  //     }
+  //   });
+  //   return await modal.present();
+  // }
 
 
   async closeModal() {

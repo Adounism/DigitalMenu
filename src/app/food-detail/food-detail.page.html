@@ -40,7 +40,7 @@
         </ion-item>
 
       </ion-list>
-      <div style="    display: flex;
+      <div style="display: flex;
     justify-content: space-between;">
         <ion-label style="color: #fff;">Montant total</ion-label>
 
@@ -109,7 +109,7 @@
 
       <ion-col size="10" style="background-color:#1f1f25; height: 100%;">
        <ion-grid >
-          <ion-col    style="padding-bottom: 0;">
+          <ion-col style="padding-bottom: 0;">
 
             <ion-card class="ingredient" style="background-color:rgba(36,39,46,255);">
               <ion-card-title>INGREDIENTS</ion-card-title>
@@ -125,7 +125,7 @@
         <ion-col style="padding-top:0; padding-bottom: 0;">
 
           <ion-card class="food-card"  >
-            <img alt="Silhouette of mountains" class="food" height="150" width="100%" src="{{BaseUrl+currentFoods?.image}} "/>
+            <img alt="Silhouette of mountains" class="food" height="180" width="100%" src="{{BaseUrl+currentFoods?.image}} "/>
             <ion-card-header style="padding-top: 0;">
               <ion-card-title color="white">{{currentFoods?.name}}</ion-card-title>
 
@@ -136,7 +136,7 @@
               <div ion-margin>
                 <ion-label class="title">Dessert</ion-label>
               </div>
-              <div class="ion-float-right">
+              <div >
                 <ion-label>{{totatDessertPrice / 100}}$</ion-label>
               </div>
             </div>
@@ -203,17 +203,17 @@
 
 
 
-  <ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+  <ion-modal id="example-modal" #modal  [isOpen]="showModal" trigger="open-custom-dialog">
     <ng-template>
       <div class="wrapper ion-text-center">
         <ion-label>NOUS DEVONS DIRE</ion-label>
         <h5>Tu as super choix de goût</h5>
 
-        <img src="../../assets/img/image.png" alt="">
+        <img src="../../assets/img/images.png" alt="">
 
         <ion-label>Commande confirmer avec</ion-label>
         <h5>Eco <span style="color: #0d7410;">Food</span> </h5>
-        <p>Votre commande sera bientôt prêt</p>
+        <p>Votre commande sera bientôt prête</p>
 
       </div>
     </ng-template>

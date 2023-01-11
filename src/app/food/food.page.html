@@ -40,7 +40,7 @@
         </ion-item>
 
       </ion-list>
-      <div style="    display: flex;
+      <div style="display: flex;
     justify-content: space-between;">
         <ion-label style="color: #fff;">Montant total</ion-label>
 
@@ -72,7 +72,7 @@
     </ion-label>
 
 
-    <ion-searchbar mode="ios" class="ion-no-padding" color="dark"  (ionChange)="searchFood($event)"   [(ngModel)]="searchText" style="margin-right: 5px; padding:0;height: 25px; font-size: 8px; border-color: white; border: 2px;">
+    <ion-searchbar mode="ios" class="search ion-no-padding" color="dark"   (ionChange)="searchFood($event)"   [(ngModel)]="searchText" style="margin-right: 5px; padding:0;height: 25px; font-size: 8px; border-color: white; border: 2px;">
     </ion-searchbar>
 
     <!-- <ion-buttons slot="end" class="ion-no-margin">
@@ -91,41 +91,36 @@
 <ion-content>
 
   <ion-grid >
-    <ion-row  >
-      <ion-col style="background-color:rgba(36,39,46,255);" size="3" >
-        <div style="align-items:center; display: flex; justify-content:space-between; flex-direction: column;">
-          <div  *ngFor="let item of categoryListe" class="nav__listitem ion-padding" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
-            <ion-icon class="category-icon" [name]="item.iconClass"></ion-icon>
-            <ion-label style="font-size: 10px; color:white">{{item.name}}</ion-label>
+    <ion-row class="left-side" >
+      <ion-col style="background-color:rgba(36,39,46,255);" >
+        <!-- <div style="align-items:center; display: flex; justify-content:space-between; flex-direction: column;"> -->
+          <div  *ngFor="let item of categoryListe" class="nav__item" (click)="setActive(item)" [class]="{ 'nav__listitem-active': item === activeItem }">
+            <!-- <ion-icon class="category-icon" [name]="item.iconClass"></ion-icon> -->
+            <img src="{{BaseUrl+ item.image}}" alt="">
+            <ion-label>{{item.name}}</ion-label>
           </div>
-        </div>
+        <!-- </div> -->
       </ion-col>
-      <ion-col style="background-color:#1f1f25;" size="9"  >
-        <ion-grid class="food-grid" >
+      <ion-col style="background-color:#1f1f25;">
+        <ion-grid  class="food-card-container">
 
-          <ion-col  *ngFor="let food of foodInCategoryListe" size="4">
-            <div  class="content"  [routerLink]="['/food-detail/',food.id]"  routerDirection="forward" >
+          <ion-col  *ngFor="let food of foodInCategoryListe">
+            <div  class="food-item"  [routerLink]="['/food-detail/',food.id]"  routerDirection="forward" >
               <img class="checkbox-content" src="{{BaseUrl+ food.image}}" alt="">
               <div *ngIf="cardFoodId === food.id" class="mino"></div>
               <div class="item-info" >
-
                 <div>
                   <ion-label id="foodName" class="checkbox-title">{{food.name}}</ion-label>
                 </div>
                 <div>
-
                   <ion-label id="foodPrice" class="checkbox-price">{{food.price / 100}}</ion-label>
                 </div>
-
                 <div >
                 </div>
-
               </div>
-
               <div  *ngIf="cardFoodId === food.id" class="checkbox-item">
                 <!-- <ion-label>{{food.quantity}}</ion-label> -->
               </div>
-
             </div>
           </ion-col>
 

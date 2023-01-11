@@ -5,11 +5,7 @@
       <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
     </ion-label>
 
-    <div style="    justify-content: center;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;">
+    <!-- <div class="bag-display">
         <span  class="dot" style="background-color: #22ab69;">
           <ion-icon class="bag" style="color:white" name="bag-handle-outline"></ion-icon>
         </span>
@@ -21,26 +17,8 @@
 
           <span>&nbsp;</span>
         </ion-button>
-      </ion-buttons>
+      </ion-buttons> -->
 
-
-    <!-- <ion-row >
-      <ion-col size="4">
-        <ion-label >
-          FOOD ECOD
-        </ion-label>
-      </ion-col>
-      <ion-col size="3" style="text-align: center;">
-        <span  class="dot">
-          <ion-icon class="bag" name="bag-handle-outline"></ion-icon>
-        </span>
-
-      </ion-col>
-
-      <ion-col size="4" >
-        <ion-icon name="language-outline"></ion-icon>
-      </ion-col>
-   </ion-row> -->
 
 
   </ion-toolbar>
@@ -50,26 +28,14 @@
 
 
 
-      <div id="container" >
+      <!-- <div id="container" >
 
 
 
       <ion-row style="width: 100%;">
-          <!-- <ion-col size="6" >
-            <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; ">
-              <ion-card-header class="ion-no-padding" style="display:flex; height: 50px; justify-content: space-around; margin: 5px;">
-                <ion-label style="color: white; font-size: 14px;">Table 1</ion-label >
-                <ion-label style="color: white; font-size: 14px;">5:30</ion-label>
-              </ion-card-header>
-
-              <ion-card-content class="ion-no-padding">
-               <ion-label style="color: white; font-size: 11px; margin: 5px;">Commandé 5 Articles</ion-label>
-              </ion-card-content>
-            </ion-card>
-          </ion-col> -->
 
 
-          <ion-col size="6" *ngFor="let table of tablesListes">
+          <ion-col size="6" offset="3"  *ngFor="let table of tablesListes">
             <ion-card color="transparent" style="border-style: solid; border-width: 1px; border-color:beige; " (click)="navigate(table.id)" >
               <ion-card-header class="ion-no-padding" style="display:flex; height: 50px; justify-content: space-around; margin: 5px;">
                 <ion-label style="color: white; font-size: 14px;">{{table.name}}</ion-label >
@@ -84,7 +50,25 @@
 
 
       </ion-row>
-    </div>
+    </div> -->
+
+
+    <ion-grid>
+      <ion-row >
+        <ion-col *ngFor="let table of tablesListes" ngif>
+          <ion-card (click)="navigate(table.id)"  [ngStyle]="{'background-color': getBackgroundColor(table.status)}" [ngClass]="getCardClass(table.status)">
+            <ion-card-header>
+              <ion-card-title>{{ table.name }}</ion-card-title>
+              <span><ion-card-title>33 min</ion-card-title></span>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-label>Status: {{ table.status }}</ion-label>
+              <!-- <ion-button >View</ion-button> -->
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
 
 </ion-content>
