@@ -1,8 +1,17 @@
-<ion-menu class="ion-color" [style.background-color]="primary" style="background:#24262a;" side="end" type="overlay" contentId="main-content">
-  <div class="model"  style="background-color:rgba(36,39,46,255); height: 100%;">
-
+<ion-menu
+  class="ion-color"
+  [style.background-color]="primary"
+  style="background: #24262a"
+  side="end"
+  type="overlay"
+  contentId="main-content"
+>
+  <div
+    class="model"
+    style="background-color: rgba(36, 39, 46, 255); height: 100%"
+  >
     <ion-header class="ion-no-border">
-      <ion-toolbar class="ion-color" [style.background-color]="primary" >
+      <ion-toolbar class="ion-color" [style.background-color]="primary">
         <ion-menu-toggle>
           <span class="close">Fermer</span>
         </ion-menu-toggle>
@@ -11,212 +20,311 @@
         </span>
       </ion-toolbar>
     </ion-header>
-    <div class="content" style="height: 95%; background-color: rgba(36,39,46,255);">
-      <ion-list class="ion-no-padding" style="height: 70%; background-color: rgba(36,39,46,255); " >
-        <ion-item class="card ion-no-padding" style="padding: 0;" *ngFor="let cart of cardListe">
+    <div
+      class="content"
+      style="height: 95%; background-color: rgba(36, 39, 46, 255)"
+    >
+      <ion-list
+        class="ion-no-padding"
+        style="height: 70%; background-color: rgba(36, 39, 46, 255)"
+      >
+        <ion-item
+          class="card ion-no-padding"
+          style="padding: 0"
+          *ngFor="let cart of cardListe"
+        >
+          <ion-thumbnail slot="start">
+            <img src="{{BaseUrl+cart['food']['image']}}" />
+          </ion-thumbnail>
+          <ion-label class="ion-no-padding">
+            <div class="name-food">
+              <ion-label>{{cart['food'].name}}</ion-label>
+              <ion-icon
+                name="close-circle-outline"
+                style="
+                  font-size: 14px;
+                  margin-right: 10px;
+                  width: 30px;
+                  height: 25px;
+                  color: #f15454;
+                "
+                (click)="removeFoodToCard(cart)"
+              ></ion-icon>
+            </div>
+            <div class="cart-control ion-no-padding">
+              <ion-buttons>
+                <ion-button
+                  style="width: 20px; height: 20px; background-color: #0d7410"
+                  (click)="decrementQuantity(cart)"
+                  >-</ion-button
+                >
+              </ion-buttons>
+              <ion-label>{{cart.quantity}}</ion-label>
+              <ion-buttons>
+                <ion-button
+                  style="width: 20px; height: 20px; background-color: #0d7410"
+                  (click)="incrementQuantity(cart)"
+                  >+</ion-button
+                >
+              </ion-buttons>
+              <ion-label class="price-food">{{cart['food']['price'] / 100}}</ion-label>
+            </div>
 
-            <ion-thumbnail slot="start">
-              <img src="{{BaseUrl+cart.image}}"/>
-            </ion-thumbnail>
-            <ion-label class="ion-no-padding">
-              <div class="name-food">
-
-                <ion-label>{{cart.name}}</ion-label>
-                <ion-icon name="close-circle-outline" style="font-size:14px; margin-right: 10px;" (click)="removeFoodToCard(cart)"></ion-icon>
-
-              </div>
-              <div class="cart-control ion-no-padding">
-                <ion-buttons>
-                  <ion-button style="width: 20px; height:20px; background-color: #0d7410;" (click)="decrementQuantity(cart)">-</ion-button>
-                </ion-buttons>
-                <ion-label>{{cart.quantity}}</ion-label>
-                <ion-buttons>
-                  <ion-button style="width: 20px; height:20px;  background-color: #0d7410;" (click)="incrementQuantity(cart)">+</ion-button>
-                </ion-buttons>
-                <ion-label>{{cart.price / 100}}</ion-label>
-              </div>
-
-            </ion-label>
+            <ion-item class="card-options" *ngFor="let opt of cart.options">
+              <ion-label>{{opt.name}}</ion-label>
+              <ion-label>{{opt.price /100}}</ion-label>
+            </ion-item>
+          </ion-label>
         </ion-item>
-
       </ion-list>
-      <div style="display: flex;
-    justify-content: space-between;">
-        <ion-label style="color: #fff;">Montant total</ion-label>
+      <div style="display: flex; justify-content: space-between">
+        <ion-label style="color: #fff">Montant total</ion-label>
 
-        <ion-label style="color: #fff;" >{{totalPrice}}</ion-label>
-
+        <ion-label style="color: #fff">{{totalPrice}}</ion-label>
       </div>
       <div>
-        <ion-buttons  class="ion-no-margin" style="width: 100%;">
-
-          <ion-button  (click)="orderFoods()" id="open-custom-dialog" expand="block"  class="command">
+        <ion-buttons class="ion-no-margin" style="width: 100%">
+          <ion-button
+            (click)="orderFoods()"
+            id="open-custom-dialog"
+            expand="block"
+            class="command"
+          >
             Commander
           </ion-button>
-
         </ion-buttons>
       </div>
     </div>
-
   </div>
 </ion-menu>
 
-
-<div  id="main-content" >
+<div id="main-content">
   <ion-header>
     <ion-toolbar class="ion-color" [style.background-color]="primary">
+      <div style="display: flex;
+      justify-content: space-between;">
 
-      <ion-label slot="start">
-        <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
-      </ion-label>
+        <ion-label slot="start">
+          <span style="color: white; padding-left: 10px">Eco </span>
+          <span style="color: #4caf50">Food</span>
+        </ion-label>
 
+        <ion-searchbar
+          mode="ios"
+          class="ion-no-padding"
+          color="dark"
+          placeholder="Rechercher"
+          style="
+            margin: 0;
+            padding: 0;
+            height: 25px;
+            width: 40%;
+            font-size: 8px;
+            border-color: white;
+            border: 2px;
+          "
+        >
+        </ion-searchbar>
 
-      <ion-searchbar mode="ios" class="ion-no-padding" color="dark" style="margin: 0; padding:0;height: 25px; font-size: 8px; border-color: white; border: 2px;">
-      </ion-searchbar>
-
-      <ion-buttons slot="end" class="ion-no-margin">
-
-
-        <ion-button class="notification"  >
-          <ion-menu-toggle>
-          <ion-icon style="color:white; width: 20px; height: 20px;"  name="cart"></ion-icon>
-          <ion-badge color="primary">{{cardListe.length}}</ion-badge>
-          </ion-menu-toggle>
-        </ion-button>
-
-      </ion-buttons>
+        <ion-buttons slot="end" class="ion-no-margin">
+          <ion-button class="notification">
+            <ion-menu-toggle>
+              <ion-icon
+                style="color: white; width: 20px; height: 20px"
+                name="cart"
+              ></ion-icon>
+              <ion-badge color="primary">{{cardListe.length}}</ion-badge>
+            </ion-menu-toggle>
+          </ion-button>
+        </ion-buttons>
+      </div>
     </ion-toolbar>
   </ion-header>
 </div>
 
-<ion-content >
-  <ion-grid class="ion-no-padding" >
-    <ion-row>
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="app-container">
+      <!-- style="background-color:rgba(36,39,46,255);" -->
+      <ion-col class="nav-container" [routerLink]="['/food']">
+        <ion-buttons>
+          <ion-button [routerLink]="['/food']" routerDirection="forward">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            <span>&nbsp;</span>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
 
-      <ion-col style="background-color:rgba(36,39,46,255);" size="2" [routerLink]="['/food']" >
-
-        <div class="exit" >
-          <ion-buttons slot="end" class="ion-no-margin">
-            <ion-button class="notification" [routerLink]="['/food']" routerDirection="forward">
-              <ion-icon name="arrow-back-outline"></ion-icon>
-              <span>&nbsp;</span>
-            </ion-button>
-          </ion-buttons>
-
-        </div>
-       </ion-col>
-
-
-      <ion-col size="10" style="background-color:#1f1f25; height: 100%;">
-       <ion-grid >
-          <ion-col style="padding-bottom: 0;">
-
-            <ion-card class="ingredient" style="background-color:rgba(36,39,46,255);">
-              <ion-card-title>INGREDIENTS</ion-card-title>
-              <ion-card-content  style="display:fle; justify-content: space-around; height:80px;">
-                <span *ngFor="let ing of currentFoods?.ingredients">{{ing.name}}</span>
-
+      <ion-col class="body-container">
+        <ion-grid class="grid-container">
+          <ion-col>
+            <ion-card class="ingredient">
+              <ion-card-title>DESCRIPTION</ion-card-title>
+              <ion-card-content>
+                <ion-text>{{currentFoods?.description}}</ion-text>
               </ion-card-content>
             </ion-card>
 
-          </ion-col>
-
-
-        <ion-col style="padding-top:0; padding-bottom: 0;">
-
-          <ion-card class="food-card"  >
-            <img alt="Silhouette of mountains" class="food" height="180" width="100%" src="{{BaseUrl+currentFoods?.image}} "/>
-            <ion-card-header style="padding-top: 0;">
-              <ion-card-title color="white">{{currentFoods?.name}}</ion-card-title>
-
-
-            </ion-card-header>
-
-            <div class="sub-title" style="align-items: center; display: flex; justify-content: space-between; margin: 5px;">
-              <div ion-margin>
-                <ion-label class="title">Dessert</ion-label>
-              </div>
-              <div >
-                <ion-label>{{totatDessertPrice / 100}}$</ion-label>
-              </div>
-            </div>
-            <ion-card-content class="ion-no-padding">
-              <p style="margin: 2px; font-size: 10px;">Add more options</p>
-
-              <div class="options-checks" style="background-color:rgba(36,39,46,255);">
-                <div  style="display: flex; align-items:center;" *ngFor="let options of currentFoods?.availableOptions">
-                  <ion-checkbox style="margin: 10px;"  [(ngModel)]="checkboxValue" [value]="options" [disabled]="disable"  (ionChange)="optionsChecked(options)" ></ion-checkbox>
-                  <ion-label style="font-size: 10px; color: #fff;">{{options?.name}}</ion-label>
-                  <span style="position: absolute; right: 0; color: #fff;" class="opt-price">{{options?.price / 100}}</span>
+            <a href="#" target="_blank">
+              <ion-card class="video-card">
+                <img
+                  class="img-placeholder"
+                  src="{{BaseUrl+currentFoods?.image}}"
+                  alt=""
+                />
+                <img
+                  class="youtube-logo"
+                  src="../../assets/img/youtube-logo.png"
+                  alt=""
+                />
+                <div class="food-info">
+                  <h3 class="food-name">{{currentFoods?.name}}</h3>
+                  <h3 class="cookTime">3 min video</h3>
                 </div>
+              </ion-card>
+            </a>
 
-              </div>
-            </ion-card-content>
-            <ion-row class="cardfooter">
-              <ion-col class="ion-no-padding">
-                <ion-buttons  class="ion-no-margin" style="width: 100%;">
-
-                  <ion-button style="background-color: #4CAF50; width: 100%; color: white; font-family: Arial; font-size: 16px;  height: 40px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;" (click)="addToCard()">
-                    Add to card
-                  </ion-button>
-
-                </ion-buttons>
-              </ion-col>
-            </ion-row>
-          </ion-card>
-        </ion-col>
-        <ion-col class="ion-no-padding"   >
-
-          <div class="parent" >
-            <div class="contenair" style="position: relative;">
-
-              <ion-card class="slide-card" style="background-color:rgba(36,39,46,255);" >
-                <ion-card-header class="ion-no-padding ion-text-center"  style="font-size: 10px;">
-                  <ion-label style="color: white;">Realize Items You May Like</ion-label>
-                </ion-card-header>
-
-                <ion-card-content style="height:90px;" class="ion-no-padding" >
-
+            <div class="more-detail">
+              <ion-card>
+                <ion-card-content>
+                  <ion-icon name="fast-food-outline"></ion-icon>
+                  <div>
+                    <p>Servings</p>
+                    <p>2 people</p>
+                  </div>
+                  <span></span>
                 </ion-card-content>
               </ion-card>
-              <div class="slide" style="position: absolute; top:15px; width: 90%; z-index: 1;">
-                <ion-slides >
-
-                  <ion-slide id="defil-food" class="ion-no-padding" *ngFor="let food of foodInCategory" (click)="showDetailPage(food.id)"  >
-                    <img src="{{BaseUrl+food.image}}"  alt="">
-                    <ion-label class="menu-name" >{{food.name}}</ion-label>
-                    <ion-label class="menu-price" >{{food.price / 100}}</ion-label>
-                  </ion-slide >
-
-                </ion-slides>
-              </div>
+              <ion-card>
+                <ion-card-content class="ion-no-padding">
+                  <div>
+                    <ion-icon name="alarm-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p>Cuisson</p>
+                    <p>{{currentFoods?.cookTime ?? "Aucun"}}</p>
+                  </div>
+                  <span></span>
+                </ion-card-content>
+              </ion-card>
+              <ion-card>
+                <ion-card-content class="ion-no-padding">
+                  <div>
+                    <ion-icon name="flame-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <p>Calorie</p>
+                    <p>{{currentFoods?.calorie??"Aucun"}}</p>
+                  </div>
+                  <span></span>
+                </ion-card-content>
+              </ion-card>
             </div>
 
-        </div>
-      </ion-col>
+            <ion-card class="ingredient">
+              <ion-card-title>INGREDIENTS</ion-card-title>
+              <ion-card-content>
+                <span *ngFor="let ing of currentFoods?.ingredients"
+                  >{{ing.name}}</span
+                >
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
 
-      </ion-grid>
-    </ion-col>
+          <ion-col>
+            <ion-card class="food-card">
+              <div class="img-container">
+                <img
+                  alt="Silhouette of mountains"
+                  class="food"
+                  src="{{BaseUrl+currentFoods?.image}} "
+                />
+              </div>
+              <ion-card-header>
+                <ion-card-title>{{currentFoods?.name}}</ion-card-title>
+                <div ion-margin>
+                  <ion-label>Dessert</ion-label>
+                  <ion-label>{{totatDessertPrice / 100}}$</ion-label>
+                </div>
+              </ion-card-header>
+              <ion-card-content>
+                <div class="options-container">
+                  <h3>Ajouter plus d'options</h3>
+                  <div class="options-checks">
+                    <div *ngFor="let options of foodsOptions">
+                      <ion-checkbox
+                        [value]="options"
+                        [disabled]="disable"
+                        (ionChange)="optionsChecked(options)"
+                      ></ion-checkbox>
+                      <ion-label>{{options?.name}}</ion-label>
+                      <span>{{options?.price / 100}}</span>
+                    </div>
+                  </div>
+                </div>
+              </ion-card-content>
+              <ion-button class="cart-button" (click)="addToCard()">
+                Ajouter au panier
+              </ion-button>
+            </ion-card>
+
+
+          </ion-col>
+          <div class="parent">
+            <div class="contenair" style="position: relative">
+              <ion-card class="slide-card">
+                <ion-card-header class="ion-no-padding ion-text-center">
+                  <ion-label>Articles similaire</ion-label>
+                </ion-card-header>
+
+                <ion-card-content>
+                  <ion-slides [options]="slideOpts">
+                    <ion-slide
+                      id="defil-food"
+                      *ngFor="let food of foodInCategory"
+                      (click)="showDetailPage(food.id)"
+                    >
+                      <img src="{{BaseUrl+food.image}}" alt="" />
+                      <div class="food-info">
+                        <ion-label>{{food.name}}</ion-label>
+                        <ion-label class="price">{{food.price / 100}}</ion-label>
+                      </div>
+                    </ion-slide>
+                  </ion-slides>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </div>
+        </ion-grid>
+
+
+      </ion-col>
     </ion-row>
+
 
   </ion-grid>
 
 
 
-  <ion-modal id="example-modal" #modal  [isOpen]="showModal" trigger="open-custom-dialog">
+  <ion-modal
+    id="example-modal"
+    #modal
+    [isOpen]="showModal"
+    trigger="open-custom-dialog"
+  >
     <ng-template>
       <div class="wrapper ion-text-center">
         <ion-label>NOUS DEVONS DIRE</ion-label>
         <h5>Tu as super choix de goût</h5>
 
-        <img src="../../assets/img/images.png" alt="">
+        <img src="../../assets/img/images.png" alt="" />
 
         <ion-label>Commande confirmer avec</ion-label>
-        <h5>Eco <span style="color: #0d7410;">Food</span> </h5>
+        <h1 style="color: #fff">
+          Eco <span style="color: #0d7410">Food</span>
+        </h1>
         <p>Votre commande sera bientôt prête</p>
-
       </div>
     </ng-template>
   </ion-modal>
-
 </ion-content>

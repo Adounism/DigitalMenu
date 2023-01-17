@@ -1,12 +1,14 @@
 ion-grid {
 
-  height: 100%;
+  display: contents;
   padding: 0;
-  ion-row{
+
+  ion-row {
     height: 100%;
   }
-  ion-col{
-    .exit{
+
+  ion-col {
+    .exit {
       height: 100%;
       justify-content: center;
       position: fixed;
@@ -17,27 +19,35 @@ ion-grid {
 }
 
 
-.notification{
+.notification {
   margin: 0;
   padding: 0;
-  ion-badge{
+
+  ion-badge {
     background-color: #F5576C;
     border-radius: 50%;
     width: 15px;
     height: 15px;
-    position:absolute;
+    position: absolute;
     top: -4%;
     right: -20%;
   }
+
+  ion-icon {
+    width: 80px;
+    height: 35px;
+    color: #FFF;
+  }
 }
 
-span{
-  margin:5px;
+span {
+  margin: 5px;
 }
-ion-slide{
 
-   width: 100px;
-   height: 120px;
+ion-slide {
+
+  width: 100px;
+  height: 120px;
 
   //  background: var(--img-src), rgba(0, 0, 0, .40);
   //  background-size: cover;
@@ -47,113 +57,154 @@ ion-slide{
   //  justify-content: space-between;
   //  aspect-ratio: 1 / 1;
 
-   img{
+  img {
 
-   background: var(--img-src), rgba(0, 0, 0, .40);
-   background-size: cover;
-   border-radius: 10px;
-   display: flex;
-   position: relative;
-   justify-content: space-between;
-   aspect-ratio: 1 / 1;
-     border-radius: 10px;
-   }
+    background: var(--img-src), rgba(0, 0, 0, .40);
+    background-size: cover;
+    border-radius: 10px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+  }
 }
-.command{
+
+.command {
   background-color: #0d7410;
-   width: 100%; color: white;
-   font-family: Arial;
-   font-size: 12px;  height: 40px;
-   border-bottom-left-radius: 5px;
+  width: 100%;
+  color: white;
+  font-family: Arial;
+  font-size: 12px;
+  height: 40px;
+  border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
 ion-checkbox {
 
   --background: transparent;
-  --border-color:#FFF;
+  --border-color: #FFF;
   border: 1px
 }
 
 
-.ingredient{
-  ion-card-title{
-    font-size: 12px;
-    color: rgb(247, 231, 231);
+.ingredient {
+  background-color: rgba(36, 39, 46, 255);
+  font-weight: 800;
+  background-color: rgb(36, 39, 46);
+  padding: 1rem;
+  color: white;
+
+  ion-card-title {
+    color: grey;
+    font-size: .7rem;
+    font-weight: 800;
+    margin-bottom: .5rem;
   }
-  ion-card-content{
-    span{
+
+  ion-card-content {
+    padding: 0;
+
+    span {
       color: #FFF;
       font-size: 10px;
     }
   }
 }
 
-.card{
-  --ion-item-background: rgba(36,39,46,255);
+.card {
+  --ion-item-background: rgba(36, 39, 46, 255);
   --inner-padding-end: 0px;
-  ion-label{
+
+  ion-label {
     color: #fff;
   }
-  h3{
+
+  h3 {
     margin-bottom: 10px;
   }
 
-  .name-food{
+  .name-food {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
   }
 }
-ion-thumbnail{
-  img{
+
+ion-thumbnail {
+  img {
     border-radius: 5px;
   }
 }
 
-ion-menu{
-  --max-width:75%;
-  --background:rgba(36,39,46,255);
-  .close{
+ion-menu {
+  --max-width: 75%;
+  --background: rgba(36, 39, 46, 255);
+
+  .close {
     font-size: 10px;
     color: #fff;
 
   }
-  .content{
+
+  .content {
     margin-top: 40px;
-    .cart-control{
+
+    .option {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 10px;
+    }
+
+    .cart-control {
       display: flex;
       text-align: center;
       align-items: center;
-      span{
+
+      span {
         background-color: forestgreen;
         height: 20px;
         width: 20px;
         font-size: medium;
       }
-      ion-label{
+
+      .price-food {
+        margin-left: 70px;
+      }
+
+      ion-label {
         margin-left: 10px;
         margin-right: 10px;
         text-align: center;
-        text-overflow:clip;
+        text-overflow: clip;
       }
+
     }
-    .head{
+
+    .head {
       display: flex;
 
       align-items: center;
       flex-direction: column;
-      justify-content:space-between;
+      justify-content: space-between;
 
     }
   }
-  .cart-count{
+
+  .detail-row {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+  }
+
+  .cart-count {
     background-color: rgb(253, 31, 31);
     border-radius: 20px;
     height: 35px;
     padding: 8px;
     font-size: 12px;
-    ion-label{
+
+    ion-label {
       color: #fff;
     }
   }
@@ -183,10 +234,11 @@ ion-menu{
 
 
 ion-modal#example-modal {
-  --width: fit-content;
+  --width: width: 345px;
+
   --min-width: 250px;
   --height: fit-content;
-  --background:rgba(36,39,46,255);
+  --background: rgba(36, 39, 46, 255);
   --border-radius: 6px;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }
@@ -208,41 +260,291 @@ ion-modal#example-modal ion-icon {
 
 ion-modal#example-modal .wrapper {
   margin-bottom: 10px;
-  label{
+  width: 500px;
+  height: 500px;
+
+  label {
     color: #fff;
 
   }
 }
-.wrapper > ion-label, h5, p{
+
+.wrapper>ion-label,
+h5,
+p {
   color: #fff;
-  font-size: 12px;
+  font-size: 18px;
+
+  font-weight: bold;
+  display: grid;
+
 }
 
-.food-card{
-  background-color:rgba(36,39,46,255);
-  .food{
-    @media only screen and (min-width: 768px) {
-      height: 250px;
+.grid-contenair {
+  display: flex;
+
+}
+
+.video-card {
+  height: 250px;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000091;
   }
+
+  img.img-placeholder {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  img.youtube-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 7rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .food-info {
+    position: absolute;
+    bottom: 1rem;
+    left: 2rem;
+
+    .food-name {
+      font-size: 1.2rem;
+      color: white;
+      font-weight: 700;
+      margin-bottom: .3rem;
+    }
+
+    .cookTime {
+      margin: 0;
+      font-size: 0.8rem;
+    }
   }
 }
 
+.card-options{
+  ion-label{
+    margin: 0;
+  }
+}
+
+.food-card {
+  background-color: rgba(36, 39, 46, 255);
+  .img-container {
+    height: fit-content;
+    position: relative;
+
+    img {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    &::before {
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      background: rgb(198, 224, 191);
+      background: linear-gradient(180deg, rgba(198, 224, 191, 0) 51%, rgba(36, 39, 46, 1) 89%);
+    }
+
+  }
+
+  ion-card-header {
+    transform: translateY(-1.3rem);
+
+    ion-card-title {
+      color: white;
+      font-weight: 700;
+
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: .3rem 0;
+      font-weight: 500;
+    }
+  }
+
+  .options-container {
+    transform: translateY(-1rem);
+
+    h3 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: .9rem;
+      text-transform: uppercase;
+    }
+
+    .options-checks>div {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-weight: 600;
+      gap: .5rem;
+      margin: .5rem 0;
+
+      ion-label {
+        flex-grow: 1;
+      }
+
+      span {
+        margin: 0;
+      }
+    }
+  }
+
+  .cart-button {
+    width: 100%;
+    margin: 0;
+
+    border-radius: 0 !important;
+    background: #4caf50 !important;
+    text-transform: capitalize !important;
+    font-weight: 700 !important;
+  }
+}
 .slide-card{
+  background: rgba(36, 39, 46, 255);
+    padding: 1rem;
+    ion-card-header{
+      text-align: left!important;
+      margin-bottom: 1rem;
+      ion-label{
+        text-align: left;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+    }
+    ion-card-content{
+      padding: 0;
+      ion-slide{
+        position: relative;
+      overflow: hidden;
+      height: 200px;
+      border-radius: 5px;
+      &::before{
+        position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #00000091;
+      }
+      img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        z-index: -1;
+        border-radius: 0;
+      }
+      .food-info{
+        position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: white;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      ion-label.price{
+        font-weight: 300;
+    font-size: 13px;
+      }
+      }
+    }
+
+    }
+}
+
+.more-detail {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .7rem;
+  margin: .9rem .7rem;
+
+  ion-card {
+    background-color: rgb(36, 39, 46);
+    border-radius: 10px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p:first-child {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 1rem;
+      color: #f7f6f6b8;
+    }
+
+    p {
+      font-size: 12px;
+      text-align: center;
+    }
+
+    ion-card-content {
+      ion-icon {
+        height: 2.5rem;
+        width: 2.5rem;
+        color: #0d7410;
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+}
+
+.app-container {
+  ion-col.nav-container {
+    position: fixed;
+    width: 3.5rem;
+    height: calc(100vh - 3rem);
+    background: rgba(36, 39, 46, 255);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  ion-col.body-container {
+    padding-left: 3.5rem;
+    background-color: #1f1f25;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .app-container {
+    ion-col.body-container{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+}
+
+.contenair{
   @media only screen and (min-width: 768px) {
+    width: 400px;
 
-    height: 300px;
-
-
-}
+  }
 
 }
-#defil-food{
-
-  @media only screen and (min-width: 768px) {
-
-    height: 300px;
-
-
-}
-}
-

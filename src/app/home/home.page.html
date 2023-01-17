@@ -55,8 +55,19 @@
 
     <ion-grid>
       <ion-row >
-        <ion-col *ngFor="let table of tablesListes" ngif>
-          <ion-card (click)="navigate(table.id)"  [ngStyle]="{'background-color': getBackgroundColor(table.status)}" [ngClass]="getCardClass(table.status)">
+        <ion-col *ngFor="let table of tablesListes">
+          <!-- <ion-card (click)="navigate(table.id)"  [ngStyle]="{'background-color': getBackgroundColor(table.status)}"  [class]="getCardClass(table.status)">
+            <ion-card-header>
+              <ion-card-title>{{ table.name }}</ion-card-title>
+              <span><ion-card-title>33 min</ion-card-title></span>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-label>Status: {{ table.status }}</ion-label>
+
+            </ion-card-content>
+          </ion-card> -->
+
+          <ion-card (click)="navigate(table.id)"    [class]="getCardClass(table.status)">
             <ion-card-header>
               <ion-card-title>{{ table.name }}</ion-card-title>
               <span><ion-card-title>33 min</ion-card-title></span>

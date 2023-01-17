@@ -34,8 +34,8 @@ export class HttpServices {
   }
 
   options = {
-    allOptions:this.BaseUrl+"options",
-    findOptions:this.BaseUrl+"options/"
+    allOptions:this.BaseUrl+"food_options",
+    findOptions:this.BaseUrl+"food_options/"
   }
   ordering = {
     allOrderings:this.BaseUrl+"orderings",
@@ -93,7 +93,7 @@ export class HttpServices {
 
   getFoodInCategorys(id:string): Observable<any>{
     return this.http.get(`${this.foods.allFoods}?category=${id}`).pipe(map(data=>{
-      console.log(data);
+
       return data;
     }))
 

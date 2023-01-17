@@ -84,24 +84,30 @@ export class FoodPage implements OnInit {
   ionViewWillEnter() {
     this.cardListFood = this.sharedservice.cardListFood;
 
+
     console.log(this.cardListFood);
 
-    this.cardListFood.forEach(element=>{
+
+
+    this.sharedservice.cardListFood.forEach(element=>{
+
+
 
       this.cardFoodId = element.id;
+      console.log("Hellooo" ,this.cardFoodId);
     });
 
 
   }
 
   ionViewWillUnload() {
-    this.chekFoodInCard();
+
   }
 
   setActive(item: any) {
     this.activeItem = item;
     this.currentCategory =  item;
-    console.log(this.currentCategory);
+
     this.getFoodInCategory(this.currentCategory.id);
 
   }
@@ -117,18 +123,6 @@ export class FoodPage implements OnInit {
     });
   }
 
-  chekFoodInCard(){
-
-    this.cardListFood = this.sharedservice.cardListFood;
-
-    console.log(this.cardListFood);
-
-    this.cardListFood.forEach(element=>{
-
-      this.cardFoodId = element.id;
-    });
-
-  }
 
   getFoodInCategory(id:string){
     this.foodInCategoryListe = [];
@@ -136,7 +130,6 @@ export class FoodPage implements OnInit {
 
       this.removeCharacter(data);
       this.foodInCategoryListe = data;
-      console.log(this.foodInCategoryListe);
 
     })
   }

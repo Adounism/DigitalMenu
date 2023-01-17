@@ -41,7 +41,7 @@ export class HomePage {
   getAllOrders() {
     this.httpService.getAllOrders().subscribe((data) => {
       this.tableOrders = data;
-      console.table(this.tableOrders);
+
 
       // this.tableOrders.forEach(orders=>{
 
@@ -106,8 +106,6 @@ export class HomePage {
 
     await alert.present();
 
-    const { role } = await alert.onDidDismiss();
-    // this.roleMessage = `Dismissed with role: ${role}`;
   }
 
   getBackgroundColorClass(status: string) {
@@ -123,23 +121,26 @@ export class HomePage {
     }
   }
 
-  getBackgroundColor(status: string) {
-    switch (status) {
-      case 'paid':
-        return '#069b47';
-      case 'wait':
-        return '#ffa329';
-      case 'occupied':
-        return '#ff3333';
-      default:
-        return '#ffffff';
-    }
-  }
+  // getBackgroundColor(status: string) {
+  //   switch (status) {
+  //     case 'wait':
+  //       return '#ffa329';
+  //     case 'occupied':
+  //       return '#ff3333';
+  //     default:
+  //       return '#ffffff';
+  //   }
+  // }
 
   getCardClass(status: string) {
+
     switch (status) {
       case 'paid':
         return 'available';
+      case 'wait':
+        return 'wait';
+      case 'occupied':
+        return '#ff3333';
       default:
         return '';
     }

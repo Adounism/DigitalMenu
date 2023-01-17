@@ -10,21 +10,44 @@ ion-header {
 ion-content {
   margin: 0;
   padding: 0;
-  .header {
-    div {
-      ion-searchbar {
-        margin: 50px;
-      }
-    }
-  }
+
 }
 
 .header {
-  width: 375px;
-  height: 175px;
-  left: 0px;
-  top: 0px;
-  background: #283148;
+
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: space-between;
+
+
+
+  .search-contenair{
+    display: flex;
+    margin-right: 10px;
+
+    .search{
+      margin-right: 5px; padding:0;
+      height: 25px;
+      font-size: 8px;
+      border-color: white;
+      border: 2px;
+      border-radius: 18px;
+      width: 300px;
+
+      @media screen and (max-width: 500px) {
+        width: 150px;
+      }
+
+    }
+
+  }
+  // width: 375px;
+  // height: 175px;
+  // left: 0px;
+  // top: 0px;
+  // background: #283148;
 }
 
 ion-grid {
@@ -61,11 +84,34 @@ ion-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: .4rem;
+
+      @media screen and (max-width: 500px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
       .food-item {
         height: 150px;
         overflow: hidden;
         border-radius: 14px;
         position: relative;
+        .selected {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgb(198, 224, 191);
+          border-radius: 10px;
+          background: linear-gradient(
+            145deg,
+            rgba(198, 224, 191, 0.30015756302521013) 38%,
+            rgba(70, 209, 88, 0.832) 66%
+          );
+        }
+
+
+        @media screen and (max-width: 768px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
         img {
           height: 100%;
           width: 100%;
@@ -177,11 +223,23 @@ ion-menu {
   }
 }
 
+.cart-count{
+  background-color: rgb(253, 31, 31);
+  border-radius: 20px;
+  height: 30px;
+  padding: 8px;
+  font-size: 12px;
+  ion-label{
+    color: #fff;
+  }
+}
+
 .search {
   ion-item {
     --border-radius: 10px;
     --box-shadow: 0px 13px 30px 0px rgba(0, 0, 0, 0.09);
     padding: 8px;
+    width: 200px;
     ion-icon {
       margin-right: 16px;
     }
@@ -252,20 +310,7 @@ ion-menu {
     left: 0;
   }
 
-  .mino {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgb(198, 224, 191);
-    border-radius: 10px;
-    background: linear-gradient(
-      145deg,
-      rgba(198, 224, 191, 0.30015756302521013) 38%,
-      rgba(70, 209, 88, 0.832) 66%
-    );
-  }
+
 
   .checkbox-title {
     color: var(--ion-color-light);
@@ -344,6 +389,11 @@ ion-menu {
   ion-label {
     transition: fill 500ms cubic-bezier(0, 0.76, 0.58, 1.43);
     color: green;
+  }
+  img{
+    border: 2px solid #4CAF50;
+    padding: 2px;
+    box-shadow: 0px 0px 30px 0px #4caf50;
   }
 }
 

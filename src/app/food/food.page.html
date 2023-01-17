@@ -67,13 +67,27 @@
 <ion-header>
   <ion-toolbar class="ion-color" [style.background-color]="primary">
 
-    <ion-label slot="start">
-      <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
-    </ion-label>
+
+    <div class="header" >
+
+      <ion-label slot="start">
+        <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
+      </ion-label>
 
 
-    <ion-searchbar mode="ios" class="search ion-no-padding" color="dark"   (ionChange)="searchFood($event)"   [(ngModel)]="searchText" style="margin-right: 5px; padding:0;height: 25px; font-size: 8px; border-color: white; border: 2px;">
-    </ion-searchbar>
+
+      <div class="search-contenair">
+      <ion-searchbar mode="ios" class="search ion-no-padding" color="dark"
+      placeholder="Rechercher"
+        (ionChange)="searchFood($event)"   [(ngModel)]="searchText" >
+      </ion-searchbar>
+
+
+        <span class="cart-count ion-padding" >
+          <ion-label>Articles dans le panier({{cardListe.length}})</ion-label>
+        </span>
+      </div>
+    </div>
 
     <!-- <ion-buttons slot="end" class="ion-no-margin">
       <ion-button class="notification" >
@@ -107,7 +121,7 @@
           <ion-col  *ngFor="let food of foodInCategoryListe">
             <div  class="food-item"  [routerLink]="['/food-detail/',food.id]"  routerDirection="forward" >
               <img class="checkbox-content" src="{{BaseUrl+ food.image}}" alt="">
-              <div *ngIf="cardFoodId === food.id" class="mino"></div>
+              <div *ngIf="cardFoodId === food.id" class="selected"></div>
               <div class="item-info" >
                 <div>
                   <ion-label id="foodName" class="checkbox-title">{{food.name}}</ion-label>
