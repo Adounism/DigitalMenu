@@ -41,6 +41,7 @@ export class FoodDetailPage implements OnInit {
   cardListe: any[] = [];
   foodInCategory: any[] = [];
   tableId: any;
+  takeaway:any;
   showModal: boolean = false;
   totalPrice: number = 0;
   loading: any;
@@ -67,9 +68,10 @@ export class FoodDetailPage implements OnInit {
   ngOnInit() {
     this.getCurrentFoodData();
     this.tableId = localStorage.getItem('table');
+    this.takeaway = localStorage.getItem('takeaway');
     console.log(this.tableId);
 
-    if (!this.tableId) {
+    if (!this.tableId || !this.takeaway) {
       this.route.navigate(['/home']);
     }
   }
@@ -88,7 +90,7 @@ export class FoodDetailPage implements OnInit {
       .getfindFoodsInCategorys(this.currentFoodId)
       .subscribe((data) => {
         this.currentFoods = data;
-        console.log(this.currentFoods);
+
 
         this.getAllFoodIncategory(data.category?.name);
         this.getAllOptions();
@@ -189,6 +191,9 @@ export class FoodDetailPage implements OnInit {
 
   orderFoods() {
     this.showLoading();
+    let tid = this.tableId === undefined ? this.tableId : this.takeaway;
+    console.log(tid);
+
     let order: any = {
       itable: 'api/tables/' + this.tableId,
       foodOrders: this.cardListe.map((c: any) => ({
@@ -231,7 +236,7 @@ export class FoodDetailPage implements OnInit {
     let options = [];
 
     options.push('api/options/' + option.id);
-    console.log(options);
+
   }
 
   async presentToast(message: string, color: string) {
@@ -265,7 +270,7 @@ export class FoodDetailPage implements OnInit {
   // }
 
   async closeModal() {
-    console.log('hello');
+
 
     await this.modal.dismiss();
   }
