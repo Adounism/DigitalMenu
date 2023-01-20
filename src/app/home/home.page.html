@@ -5,12 +5,14 @@
       <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
     </ion-label>
 
-    <!-- <div class="bag-display">
+    <div class="bag-display" (click)="takeaway()">
         <span  class="dot" style="background-color: #22ab69;">
           <ion-icon class="bag" style="color:white" name="bag-handle-outline"></ion-icon>
-        </span>
-    </div>
 
+        </span>
+        <ion-label>emporter</ion-label>
+    </div>
+<!--
       <ion-buttons slot="end" class="ion-margin">
         <ion-button class="notification" routerLink="/langage">
           <ion-icon style="color:white"  name="language-outline"></ion-icon>
