@@ -13,6 +13,7 @@ export class HomePage {
   tablesListes: any[] = [];
   tableOrders: any[] = [];
   tableID!: number;
+  takeaway= "takeaway";
   productRating!: number;
   constructor(
     private httpService: HttpServices,
@@ -22,7 +23,9 @@ export class HomePage {
     // this.tableID = this.router.snapshot.params['id'];
 
     this.getAllTables();
+
     this.getAllOrders();
+    localStorage.removeItem('table');
   }
 
   getAllTables() {
@@ -36,6 +39,12 @@ export class HomePage {
   navigate(id: any) {
     this.router.navigate(['/food']);
     localStorage.setItem('table', id);
+  }
+
+  takeawaynavgiate(){
+    this.router.navigate(['/food']);
+    localStorage.setItem('takeaway', this.takeaway);
+    localStorage.removeItem('table');
   }
 
   getAllOrders() {

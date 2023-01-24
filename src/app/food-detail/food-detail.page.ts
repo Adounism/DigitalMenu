@@ -71,8 +71,8 @@ export class FoodDetailPage implements OnInit {
     this.takeaway = localStorage.getItem('takeaway');
     console.log(this.tableId);
 
-    if (!this.tableId || !this.takeaway) {
-      this.route.navigate(['/home']);
+    if(!this.tableId){
+      this.tableId = null;
     }
   }
 
@@ -193,20 +193,38 @@ export class FoodDetailPage implements OnInit {
     this.showLoading();
     let tid = this.tableId === undefined ? this.tableId : this.takeaway;
     console.log(tid);
+    let order:any;
 
-    let order: any = {
-      itable: 'api/tables/' + this.tableId,
-      foodOrders: this.cardListe.map((c: any) => ({
-        food: 'api/food/' + parseInt(c['food']?.['id']),
-        quantity: c.quantity,
-        options: c.options.map((o: any) => '/api/food_options/' + o.id),
-      })),
-    };
+    if(!this.tableId){
+
+      order = {
+
+        foodOrders: this.cardListe.map((c: any) => ({
+          food: 'api/food/' + parseInt(c['food']?.['id']),
+          quantity: c.quantity,
+          options: c.options.map((o: any) => '/api/food_options/' + o.id),
+        })),
+      };
+    }else{
+
+       order = {
+        itable: 'api/tables/' + this.tableId,
+        foodOrders: this.cardListe.map((c: any) => ({
+          food: 'api/food/' + parseInt(c['food']?.['id']),
+          quantity: c.quantity,
+          options: c.options.map((o: any) => '/api/food_options/' + o.id),
+        })),
+      };
+    }
+
     this.services
       .makeOrdering(order)
       .then((data) => {
         this.loadingCtrl.dismiss();
+        console.log(data);
+
         if(data.active){
+
           this.showModal = true;
 
         }
