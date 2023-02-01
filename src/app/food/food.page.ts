@@ -115,6 +115,7 @@ export class FoodPage implements OnInit {
   getAllCategories(){
     this.service.getCategory().subscribe(data=>{
       this.categoryListe = data;
+      this.categoryListe.reverse();
       console.log(this.categoryListe[0]);
       this.activeItem = this.categoryListe[0];
       this.getFoodInCategory(this.categoryListe[0].name);

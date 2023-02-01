@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { HttpServices } from '../services/http-services.service';
+import { TableService } from '../services/table.service';
 
 @Component({
   selector: 'app-home',
@@ -18,22 +19,42 @@ export class HomePage {
   constructor(
     private httpService: HttpServices,
     private router: Router,
+    private tableService:TableService,
     private alertController: AlertController
   ) {
-    // this.tableID = this.router.snapshot.params['id'];
+    //this.tableID = this.router.snapshot.params['id'];
 
     this.getAllTables();
-
     this.getAllOrders();
+    this.getAllTable();
     localStorage.removeItem('table');
   }
 
+  ionViewWillEnter() {
+
+  }
+
   getAllTables() {
+    this.tablesListes = [];
     this.httpService.getAllTables().subscribe((data) => {
       this.tablesListes = data;
+      this.tableService.updateTables(data);
+      // console.log(this.tablesListes);
 
-      this.getAllOrders();
+      // this.getAllOrders();
     });
+
+  }
+
+  getAllTable() {
+    this.httpService.getAllTable().subscribe((data) => {
+      this.tablesListes = data;
+      this.tableService.updateTables(data);
+      // console.log(this.tablesListes);
+
+      // this.getAllOrders();
+    });
+
   }
 
   navigate(id: any) {
@@ -50,8 +71,6 @@ export class HomePage {
   getAllOrders() {
     this.httpService.getAllOrders().subscribe((data) => {
       this.tableOrders = data;
-
-
       // this.tableOrders.forEach(orders=>{
 
       // })

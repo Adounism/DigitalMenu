@@ -47,7 +47,13 @@ export class FoodDetailPage implements OnInit {
   loading: any;
   BaseUrl = environment.ressoursseUrl;
   disable = true;
+  city:any;
+  latitude :any;
+  longitude:any;
   optionInCard: any = [];
+  firstName:any;
+  lastName:any;
+  contact:any;
 
   @ViewChild('modal', { static: false }) modal!: ModalController;
   constructor(
@@ -69,11 +75,19 @@ export class FoodDetailPage implements OnInit {
     this.getCurrentFoodData();
     this.tableId = localStorage.getItem('table');
     this.takeaway = localStorage.getItem('takeaway');
+    this.city = localStorage.getItem('city');
+    this.latitude = localStorage.getItem('latitude');
+    this.longitude = localStorage.getItem('longitude');
+    this.firstName = localStorage.getItem('firstName');
+    this.lastName = localStorage.getItem('lastName');
+    this.contact =  localStorage.getItem('contact');
     console.log(this.tableId);
 
     if(!this.tableId){
       this.tableId = null;
     }
+
+
   }
 
   ionViewWillEnter() {
@@ -195,20 +209,41 @@ export class FoodDetailPage implements OnInit {
     console.log(tid);
     let order:any;
 
-    if(!this.tableId){
+    if(this.tableId){
 
       order = {
-
+        itable: 'api/tables/' + this.tableId,
         foodOrders: this.cardListe.map((c: any) => ({
           food: 'api/food/' + parseInt(c['food']?.['id']),
           quantity: c.quantity,
           options: c.options.map((o: any) => '/api/food_options/' + o.id),
         })),
       };
-    }else{
+    }else if(this.latitude){
 
        order = {
-        itable: 'api/tables/' + this.tableId,
+        // itable: 'api/tables/' + this.tableId,
+        foodOrders: this.cardListe.map((c: any) => ({
+          food: 'api/food/' + parseInt(c['food']?.['id']),
+          quantity: c.quantity,
+          options: c.options.map((o: any) => '/api/food_options/' + o.id),
+        })),
+      adresse: {
+        "city":this.city,
+        "latitude":this.latitude,
+        "longitude":this.longitude,
+        client:{
+          "firstName":this.firstName,
+          "lastName":this.lastName,
+          "contact":this.contact
+
+        }
+      }
+      };
+    }else{
+
+      order = {
+        // itable: 'api/tables/' + this.tableId,
         foodOrders: this.cardListe.map((c: any) => ({
           food: 'api/food/' + parseInt(c['food']?.['id']),
           quantity: c.quantity,
@@ -240,6 +275,7 @@ export class FoodDetailPage implements OnInit {
       .finally(() => {
         this.loadingCtrl.dismiss();
         this.sharedService.clearSharedData();
+        localStorage.clear();
         localStorage.removeItem('table');
       });
   }

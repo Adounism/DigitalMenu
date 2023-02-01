@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'modal',
     loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
   },
+  {
+    path: 'command',
+    loadChildren: () => import('./command/command.module').then( m => m.CommandPageModule)
+  },
 
 ];
 

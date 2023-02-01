@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, interval, map, Observable, of, switchMap } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
@@ -122,6 +122,13 @@ export class HttpServices {
 
 
   getAllTables(): Observable<any>{
+    return interval(60000).pipe( // exécute la requête toutes les 60 secondes (60000 milliseconds)
+      switchMap(() => this.http.get(`${this.tables.allTable}`)),
+      map(data => data)
+    )
+}
+
+  getAllTable(): Observable<any>{
     return this.http.get(`${this.tables.allTable}`).pipe(
       map(data=>{
         return data;
@@ -131,6 +138,7 @@ export class HttpServices {
   }
 
   getAllOptions():Observable<any>{
+    this.getAllTable();
     return this.http.get(`${this.options.allOptions}`).pipe(
       map(data=>{
         return data;

@@ -5,24 +5,20 @@
       <span style="color:white; padding-left: 10px;">Eco </span> <span style="color: #4CAF50;">Food</span>
     </ion-label>
 
-    <div class="bag-display" (click)=" takeawaynavgiate()">
+    <div class="bag-display" (click)="takeawaynavgiate()">
         <span  class="dot" style="background-color: #22ab69;">
           <ion-icon class="bag" style="color:white" name="bag-handle-outline"></ion-icon>
-
         </span>
         <ion-label>emporter</ion-label>
     </div>
-<!--
-      <ion-buttons slot="end" class="ion-margin">
-        <ion-button class="notification" routerLink="/langage">
-          <ion-icon style="color:white"  name="language-outline"></ion-icon>
 
-          <span>&nbsp;</span>
-        </ion-button>
-      </ion-buttons> -->
-
-
-
+    <ion-buttons slot="end" class="ion-margin">
+      <ion-button class="notification" routerLink="/command">
+        <!-- <ion-icon style="color:white"  name="cart-outline"></ion-icon> -->
+        <img src="../../assets/icon/delivery-svgrepo-com.svg" width="40" style="color: #22ab69;" height="40" alt="">
+        <ion-label>en ligne</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -72,7 +68,8 @@
           <ion-card (click)="navigate(table.id)"    [class]="getCardClass(table.status)">
             <ion-card-header>
               <ion-card-title>{{ table.name }}</ion-card-title>
-              <span><ion-card-title>33 min</ion-card-title></span>
+              <!-- <span><ion-card-title>33 min</ion-card-title></span> -->
+              <span><ion-card-title>{{table.orderDuration}}</ion-card-title></span>
             </ion-card-header>
             <ion-card-content>
               <ion-label>Status: {{ table.status }}</ion-label>

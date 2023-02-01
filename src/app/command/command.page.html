@@ -1,0 +1,64 @@
+<ion-header >
+  <ion-toolbar class="ion-color" [style.background-color]="primary">
+    <ion-title>
+      Adresse
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="form" style="margin: 5px;">
+    <div  style="display: flex;">
+
+      <div>
+        <ion-item>
+          <ion-label>Nom</ion-label>
+          <ion-input formControlName="nom"></ion-input>
+        </ion-item>
+      </div>
+
+      <div>
+        <ion-item>
+          <ion-label>Prénom</ion-label>
+          <ion-input formControlName="prenom"></ion-input>
+        </ion-item>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked">Numéro de téléphone</ion-label>
+      <ion-input placeholder="71-23-45-67" formControlName="numeroTelephone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Quartier</ion-label>
+      <ion-input placeholder="hamdallaye aci 2000" formControlName="quartier"></ion-input>
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-label position="stacked">Rue</ion-label>
+      <ion-input formControlName="rue"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Porte</ion-label>
+      <ion-input formControlName="porte"></ion-input>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label>
+        Latitue
+      </ion-label>
+      <ion-badge color="danger" slot="end">{{latitude}}</ion-badge>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Longitude
+      </ion-label>
+      <ion-badge color="danger" slot="end">{{longitude}}</ion-badge>
+    </ion-item>
+  </form>
+  <ion-button expand="block" (click)="submitForm()">Soumettre</ion-button>
+</ion-content>
